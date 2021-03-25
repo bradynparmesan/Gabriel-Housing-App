@@ -58,7 +58,7 @@ class HomeScreen extends State<HomePage> with TickerProviderStateMixin {
       appBar: AppBar(
           backgroundColor: Colors.white,
           iconTheme: IconThemeData(
-            color: Colors.black,
+            color: Colors.white,
             //change your color here
           ),
           

@@ -56,7 +56,7 @@ class LoginScreenState extends State<LoginScreen> {
                       height: 80,
                     ),
                     Container(
-                        padding: const EdgeInsets.only(right: 240),
+                        width: MediaQuery.of(context).size.width / 1.20,
                         child: Text(
                           'USERNAME',
                           style: Styles.headerText,
@@ -93,7 +93,7 @@ class LoginScreenState extends State<LoginScreen> {
                       height: 20,
                     ),
                     Container(
-                        padding: const EdgeInsets.only(right: 240),
+                        width: MediaQuery.of(context).size.width / 1.20,
                         child: Text(
                           'PASSWORD',
                           style: Styles.headerText,
@@ -129,18 +129,18 @@ class LoginScreenState extends State<LoginScreen> {
                       height: 10,
                     ),
                     Container(
-                        padding: const EdgeInsets.only(right: 150),
+                        width: MediaQuery.of(context).size.width / 1.20,
                         child: Text('ARE YOU A GHC MEMBER',
                             style: Styles.headerText)),
                     Container(
-                        padding: EdgeInsets.only(right: 170),
+                        width: MediaQuery.of(context).size.width / 1.20,
                         child: new Theme(
                           data: new ThemeData(
                             primarySwatch: Styles.appColor,
                             // unselectedWidgetColor: Styles.appColor,
                           ),
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                            // mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Transform.scale(
                                   scale: 1.1,
@@ -175,18 +175,19 @@ class LoginScreenState extends State<LoginScreen> {
                         )),
                     SizedBox(height: 10),
                     Container(
-                        padding: const EdgeInsets.only(right: 160),
+                                              width: MediaQuery.of(context).size.width / 1.20,
+
                         child: Text('ARE YOU A GHC MEMBER',
                             style: Styles.headerText)),
                     Container(
-                        padding: EdgeInsets.only(right: 180),
+                        width: MediaQuery.of(context).size.width / 1.20,
                         child: new Theme(
                           data: new ThemeData(
                             primarySwatch: Styles.appColor,
                             // unselectedWidgetColor: Styles.appColor,
                           ),
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                           // mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Transform.scale(
                                   scale: 1.1,
@@ -219,35 +220,7 @@ class LoginScreenState extends State<LoginScreen> {
                             ],
                           ),
                         )),
-                        Container(
-                        child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 10.0, horizontal: 30.0),
-                            child: RichText(
-                                textAlign: TextAlign.center,
-                                text: new TextSpan(children: [
-                                  TextSpan(
-                                    text: 'CREATE ACCOUNT',
-                                    style: TextStyle(
-                                        fontSize: 18,
-                                        color: Styles.buttoncolor,
-                                        fontFamily: Styles.fontFamilyMedium,
-                                        decoration: TextDecoration.underline),
-                                    recognizer: new TapGestureRecognizer()
-                                      ..onTap = () {
-                                        Navigator.push(
-                                            context,
-                                            new MaterialPageRoute(
-                                                builder: (context) =>
-                                                    CreatAccountScreen()));
-                                      },
-                                  )
-                                ])))
-                      ],
-                    )),
+                    
                     SizedBox(height: 10),
                   ],
                 )),
@@ -271,12 +244,15 @@ class LoginScreenState extends State<LoginScreen> {
                 height: 45,
                 width: 300,
                 child: RaisedButton(
-                  child: Text('LOGIN',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontFamily: Styles.fontFamilyBold,
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold)),
+                  child: Text(
+                    "LOGIN",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontFamily: Styles.fontFamilyBold,
+                      fontSize: 18,
+                    ),
+                  ),
                   color: Styles.buttoncolor,
                   shape: new RoundedRectangleBorder(
                     borderRadius: new BorderRadius.circular(5.0),
@@ -327,12 +303,14 @@ class LoginScreenState extends State<LoginScreen> {
     final prefs = await SharedPreferences.getInstance();
     print("read=========" + data["userId"].toString());
     prefs.setString("UserId", data["userId"].toString());
+    prefs.setString("UserName", data["email"]);
     prefs.setString("FirstName", data["firstName"]);
     prefs.setString("LastName", data["lastName"]);
     prefs.setString("Email", data["email"]);
 
     prefs.setString("Password", data["password"]);
     prefs.setString("ApiKey", data["apikey"]);
+    prefs.setBool("lendingpage", true);
 
     // if (isRememberMe) {
     //  // emailLogin = widget.userDetails.email;
@@ -362,17 +340,13 @@ class LoginScreenState extends State<LoginScreen> {
           Navigator.pop(context);
 
           saveData(res.data);
-         {
-                Navigator.push(context,
-              new MaterialPageRoute(builder: (context) => HomePage()));
+          {
+            Navigator.push(context,
+                new MaterialPageRoute(builder: (context) => HomePage()));
+          }
 
-             }
-  
-              
-
-          
           // showMessage(res.message);
-        
+
         } else {
           print("ab");
           if (res.data != null) {

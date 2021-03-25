@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
+
 
 import '../styles.dart';
 
@@ -98,8 +98,9 @@ class AboutScreen extends State<AboutPage> with TickerProviderStateMixin {
         child: Text(
           "CONTACT US",
           style: TextStyle(
-            fontSize: 18,
+            fontSize: 15,
             color: Colors.black,
+            fontFamily: Styles.fontFamilyBold
           ),
         ),
       ),
@@ -119,8 +120,9 @@ class AboutScreen extends State<AboutPage> with TickerProviderStateMixin {
             child: Text(
               'Email :',
               style: TextStyle(
-                fontSize: 18,
+                fontSize: 15,
                 color: Styles.buttoncolor,
+                fontFamily: Styles.fontFamilyBold
               ),
             ),
           ),
@@ -129,7 +131,8 @@ class AboutScreen extends State<AboutPage> with TickerProviderStateMixin {
             onOpen: _onOpen,
             text: "reception@gabrielhousing.com",
             style: TextStyle(
-              fontSize: 16,
+              fontSize: 13,
+              fontFamily: Styles.fontFamilyMedium
             ),
           ))
         ],
@@ -150,8 +153,9 @@ class AboutScreen extends State<AboutPage> with TickerProviderStateMixin {
             child: Text(
               'Phone :',
               style: TextStyle(
-                fontSize: 18,
+                fontSize: 15,
                 color: Styles.buttoncolor,
+                  fontFamily: Styles.fontFamilyBold
               ),
             ),
           ),
@@ -160,7 +164,8 @@ class AboutScreen extends State<AboutPage> with TickerProviderStateMixin {
             onOpen: _onPhone,
             text: "306-775-2905",
             style: TextStyle(
-              fontSize: 15,
+              fontSize: 13,
+                fontFamily: Styles.fontFamilyMedium
             ),
             // child:FlatButton(
             // child: Text("Test Call"),

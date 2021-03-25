@@ -6,6 +6,7 @@ import 'package:ghcmobile/styles.dart';
 
 import 'home/home_screen.dart';
 import 'lending_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   runApp(MyApp());
@@ -71,10 +72,11 @@ class _LoginScreenState extends State<LoginScreen> {
   String password = "";
   bool lendingpage = false;
 
-   startTime() async {
-    var _duration = new Duration(seconds:1);
+  startTime() async {
+    var _duration = new Duration(seconds: 1);
     return new Timer(_duration, navigationPage);
   }
+
   void navigationPage() {
     if (lendingpage) {
       Navigator.push(
@@ -84,11 +86,12 @@ class _LoginScreenState extends State<LoginScreen> {
           new MaterialPageRoute(builder: (context) => LendingScreen()));
     }
   }
+
   @override
   void initState() {
     super.initState();
     startTime();
-   // read();
+    read();
   }
 
   @override
@@ -96,5 +99,17 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold();
   }
 
- 
+  read() async {
+    final prefs = await SharedPreferences.getInstance();
+
+    setState(() {
+      lendingpage = prefs.containsKey('lendingpage') ? true : false;
+      userId = prefs.getString('userId').toString();
+      print("====user_id====" + userId.toString());
+      email = prefs.getString('UserName');
+      print("====email====" + email.toString());
+      //   role = prefs.getString('Role');
+      //  print("====role===="+role.toString());
+    });
+  }
 }

@@ -7,6 +7,7 @@ import 'package:ghcmobile/service/account_service.dart';
 
 
 import '../styles.dart';
+import 'login_screen.dart';
 
 class CreatAccountScreen extends StatefulWidget {
   @override
@@ -210,7 +211,7 @@ class CreatAccountScreenState extends State<CreatAccountScreen> {
                                             context,
                                             new MaterialPageRoute(
                                                 builder: (context) =>
-                                                    CreatAccountScreen()));
+                                                    LoginScreen()));
                                       },
                                   )
                                 ])))
