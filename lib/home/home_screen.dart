@@ -16,27 +16,49 @@ class HomeScreen extends State<HomePage> with TickerProviderStateMixin {
   List<Tab> tabList = List();
   TabController _tabController;
   int _currentIndex = 0;
+  int currentIndex = 0;
   @override
   void initState() {
     tabList.add(new Tab(
+      text: 'Home',
+      icon: Image.asset(
+        'assets/img/03-home-gray.png',
+        
+         width: 25,
+        // color: Colors.white,
+      ),
+    ));
+    tabList.add(new Tab(
       text: 'Message',
-      icon: Icon(Icons.message),
+      icon: Image.asset(
+        'assets/img/05-message-gray.png',
+        width: 25,
+        // color: Colors.white,
+      ),
     ));
     tabList.add(new Tab(
       text: 'Apply',
-      icon: Icon(Icons.colorize),
-    ));
-    tabList.add(new Tab(
-      text: 'Home',
-      icon: Icon(Icons.home),
+      icon: Image.asset(
+        'assets/img/04-apply-gray.png',
+        width: 25,
+        // color: Colors.white,
+      ),
     ));
     tabList.add(new Tab(
       text: 'About us',
-      icon: Icon(Icons.account_circle),
+      icon: Image.asset(
+        'assets/img/07-about-gray.png',
+        width: 25,
+        // color: Colors.white,
+      ),
     ));
     tabList.add(new Tab(
       text: 'Maintenance',
-      icon: Icon(Icons.build_circle_outlined),
+      icon: Image.asset(
+        'assets/img/06-mainten-gray.png',
+        width: 25,
+        // color: Colors.white,
+      ),
     ));
     _tabController = new TabController(
         vsync: this, length: tabList.length, initialIndex: _currentIndex);
@@ -61,7 +83,6 @@ class HomeScreen extends State<HomePage> with TickerProviderStateMixin {
             color: Colors.white,
             //change your color here
           ),
-          
           title: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -81,20 +102,35 @@ class HomeScreen extends State<HomePage> with TickerProviderStateMixin {
             Padding(
               padding: EdgeInsets.only(right: 10),
               child: IconButton(
-                  icon: Icon(
-                    Icons.dashboard_outlined,
-                    color: Colors.black,
+                  icon: Image.asset(
+                    'assets/img/08-menu-icon.png',
+                    // width: 40,
+                    // color: Colors.white,
                   ),
-                  iconSize: 40,
+                  iconSize: 30,
                   onPressed: null),
             ),
           ]),
       body: WillPopScope(
         onWillPop: null,
         child: Stack(
-          children: <Widget>[buildapp(context),
-          // AboutPage(),
-          // MaintenancePage()
+          // children: <Widget>[buildapp(context),
+          // // AboutPage(),
+          // // MaintenancePage()
+          // ],
+          children: <Widget>[
+            Container(
+                //  padding: EdgeInsets.only(top:500),
+                child: TabBarView(
+              controller: _tabController,
+              children: [
+                buildapp(context),
+                MessageScreen(),
+                ApplyScreen(),
+                AboutPage(),
+                MaintenancePage(),
+              ],
+            )),
           ],
         ),
       ),
@@ -199,11 +235,13 @@ class HomeScreen extends State<HomePage> with TickerProviderStateMixin {
                           // )
                         ),
                         child: IconButton(
-                            icon: Icon(
-                              Icons.border_color,
+                            icon: Image.asset(
+                              'assets/img/04-apply-icon.png',
+                              width: 40,
                               color: Colors.white,
                             ),
-                            iconSize: 40,
+                            iconSize: 100.0,
+                            //color:Colors.white,
                             onPressed: () async {
                               await Navigator.push(
                                   context,
@@ -272,11 +310,12 @@ class HomeScreen extends State<HomePage> with TickerProviderStateMixin {
                           // )
                         ),
                         child: IconButton(
-                            icon: Icon(
-                              Icons.attach_email_outlined,
+                            icon: Image.asset(
+                              'assets/img/05-message-icon.png',
+                              width: 40,
                               color: Colors.white,
                             ),
-                            iconSize: 40,
+                            iconSize: 100.0,
                             onPressed: () async {
                               await Navigator.push(
                                   context,
@@ -351,11 +390,12 @@ class HomeScreen extends State<HomePage> with TickerProviderStateMixin {
                           // )
                         ),
                         child: IconButton(
-                            icon: Icon(
-                              Icons.build_circle_outlined,
+                            icon: Image.asset(
+                              'assets/img/06-mainten-icon.png',
+                              width: 40,
                               color: Colors.white,
                             ),
-                            iconSize: 40,
+                            iconSize: 100.0,
                             onPressed: () async {
                               await Navigator.push(
                                   context,
@@ -443,11 +483,14 @@ class HomeScreen extends State<HomePage> with TickerProviderStateMixin {
                           // )
                         ),
                         child: IconButton(
-                            icon: Icon(
-                              Icons.person_sharp,
+                            icon: Image.asset(
+                              'assets/img/07-about-icon.png',
+                              // height: 20,
+                              width: 40,
                               color: Colors.white,
+                              //
                             ),
-                            iconSize: 40,
+                            iconSize: 100.0,
                             onPressed: () async {
                               await Navigator.push(
                                   context,

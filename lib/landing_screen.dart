@@ -6,12 +6,12 @@ import 'main/createaccount_screen.dart';
 import 'main/login_screen.dart';
 import 'styles.dart';
 
-class LendingScreen extends StatefulWidget {
+class LandingScreen extends StatefulWidget {
   @override
-  LendingScreenState createState() => LendingScreenState();
+  LandingScreenState createState() => LandingScreenState();
 }
 
-class LendingScreenState extends State<LendingScreen> {
+class LandingScreenState extends State<LandingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,9 +20,29 @@ class LendingScreenState extends State<LendingScreen> {
       child: Stack(
         children: [
           Container(
+              padding: EdgeInsets.only(top: 1),
               child: Scaffold(
-            body: buildLending(context),
-          ))
+                body: Container(
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage(
+                        "assets/img/landing-bg.png",
+                        //  height:200,
+                      ),
+                      fit: BoxFit.fill,
+                      // alignment: Alignment.
+                      // scale: 5.0
+                    ),
+                  ),
+                  child: buildLending(context),
+                ),
+                
+              ),
+            ),
+            // SizedBox(
+            //   height:100
+            // ),
+             
         ],
       ),
     ));
@@ -34,8 +54,33 @@ class LendingScreenState extends State<LendingScreen> {
         Container(
           child: Column(
             children: [
+              
+              
               SizedBox(
-                height: 450,
+                height:150
+              ),
+              Container(
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 180,
+                      child: ListView(children: <Widget>[
+                        Container(
+                          // color:Styles.white,
+                          width: 400,
+                          //height: 250,
+                          alignment: Alignment.bottomCenter,
+                          child: Image.asset("assets/img/landing-logo.png",
+                           width: 300, height: 180, 
+                              ),
+                        ),
+                      ]),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height:150
               ),
               Container(
                   child: RaisedButton(

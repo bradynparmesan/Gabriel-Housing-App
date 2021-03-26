@@ -10,6 +10,7 @@ class UserApply {
   String email;
   String dependents;
   String housingNeed;
+  
   UserApply(
       {this.userId,
       this.applyFor,
@@ -21,7 +22,9 @@ class UserApply {
       this.phoneNumber,
       this.email,
       this.dependents,
-      this.housingNeed});
+      this.housingNeed,
+      
+      });
   factory UserApply.fromJson(Map<String, dynamic> json) => UserApply(
         userId: json["UserId"],
         applyFor: json["ApplyFor"],
@@ -34,23 +37,35 @@ class UserApply {
         email: json["Email"],
         dependents: json["NumberOfDependents"],
         housingNeed: json["HousingNeed"],
+       
       );
 }
+
 class Maintenance {
+  int userId;
   String address;
   String description;
   String problemofphoto;
   String contact;
-  int userId;
 
   String social;
 
-  Maintenance(
-      {this.userId,
-      this.address,
-      this.description,
-      this.problemofphoto,
-      this.contact,
-      });
+  Maintenance({
+    this.userId,
+    this.address,
+    this.description,
+    this.problemofphoto,
+    this.contact,
+    this.social,
+  });
+  factory Maintenance.fromJson(Map<String, dynamic> json) => Maintenance(
+        userId: json["UserId"],
+        address: json["Address"],
+        description: json["ProblemOfDescription"],
+        problemofphoto: json["ProblemPhoto"],
+        contact: json["ContactInfo"],
+        // social: json["City"],
+       
+       
+      );
 }
-
