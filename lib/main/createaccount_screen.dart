@@ -5,7 +5,6 @@ import 'package:ghcmobile/alert_message.dart';
 import 'package:ghcmobile/main/validator.dart';
 import 'package:ghcmobile/service/account_service.dart';
 
-
 import '../styles.dart';
 import 'login_screen.dart';
 
@@ -43,16 +42,19 @@ class CreatAccountScreenState extends State<CreatAccountScreen> {
                 child: Column(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(top: 60.0),
+                      padding: const EdgeInsets.only(top: 30.0),
                       child: Center(
-                          // child: Container(
-                          // width: 200,
-                          // height: 150,
-                          // /*decoration: BoxDecoration(
-                          //     color: Colors.red,
-                          //     borderRadius: BorderRadius.circular(50.0)),*/
-                          // child: Image.asset('asset/images/flutter-logo.png')),
-                          ),
+                        child: Container(
+                            width: 200,
+                            height: 150,
+                            /*decoration: BoxDecoration(
+                              color: Colors.red,
+                              borderRadius: BorderRadius.circular(50.0)),*/
+                            child: Image.asset('assets/img/landing-logo.png')),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 40,
                     ),
                     Container(
                         width: MediaQuery.of(context).size.width / 1.20,
@@ -72,7 +74,11 @@ class CreatAccountScreenState extends State<CreatAccountScreen> {
                           hintText: 'Firstname',
                           suffixIcon: IconButton(
                             onPressed: () {},
-                            icon: Icon(Icons.person_outline_outlined),
+                            icon: Image.asset(
+                              'assets/img/01-user-gray.png',
+                              height: 20,
+                            ),
+                            iconSize: 25,
                             color: Colors.grey[400],
                           ),
                           hintStyle: TextStyle(
@@ -88,7 +94,7 @@ class CreatAccountScreenState extends State<CreatAccountScreen> {
                       ),
                     ),
                     SizedBox(
-                      height: 20,
+                      height: 10,
                     ),
                     Container(
                         width: MediaQuery.of(context).size.width / 1.20,
@@ -106,7 +112,11 @@ class CreatAccountScreenState extends State<CreatAccountScreen> {
                           hintText: 'Lastname',
                           suffixIcon: IconButton(
                             onPressed: () {},
-                            icon: Icon(Icons.person_outline_outlined),
+                            icon: Image.asset(
+                              'assets/img/01-user-gray.png',
+                              height: 20,
+                            ),
+                            iconSize: 25,
                             color: Colors.grey[400],
                           ),
                           hintStyle: TextStyle(
@@ -122,7 +132,7 @@ class CreatAccountScreenState extends State<CreatAccountScreen> {
                       ),
                     ),
                     SizedBox(
-                      height: 20,
+                      height: 10,
                     ),
                     Container(
                         width: MediaQuery.of(context).size.width / 1.20,
@@ -140,7 +150,11 @@ class CreatAccountScreenState extends State<CreatAccountScreen> {
                           hintText: 'Email',
                           suffixIcon: IconButton(
                             onPressed: () {},
-                            icon: Icon(Icons.email_outlined),
+                            icon: Image.asset(
+                              'assets/img/05-message-gray.png',
+                              height: 20,
+                            ),
+                            iconSize: 25,
                             color: Colors.grey[400],
                           ),
                           hintStyle: TextStyle(
@@ -156,7 +170,7 @@ class CreatAccountScreenState extends State<CreatAccountScreen> {
                       ),
                     ),
                     SizedBox(
-                      height: 20,
+                      height: 10,
                     ),
                     Container(
                         width: MediaQuery.of(context).size.width / 1.20,
@@ -173,7 +187,11 @@ class CreatAccountScreenState extends State<CreatAccountScreen> {
                           hintText: 'Password',
                           suffixIcon: IconButton(
                             onPressed: () {},
-                            icon: Icon(Icons.vpn_key_outlined),
+                            icon: Image.asset(
+                              'assets/img/02-password-gray.png',
+                              height: 20,
+                            ),
+                            iconSize: 25,
                             color: Colors.grey[400],
                           ),
                           hintStyle: TextStyle(

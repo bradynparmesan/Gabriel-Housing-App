@@ -43,14 +43,14 @@ class LoginScreenState extends State<LoginScreen> {
                     Padding(
                       padding: const EdgeInsets.only(top: 60.0),
                       child: Center(
-                          // child: Container(
-                          // width: 200,
-                          // height: 150,
-                          // /*decoration: BoxDecoration(
-                          //     color: Colors.red,
-                          //     borderRadius: BorderRadius.circular(50.0)),*/
-                          // child: Image.asset('asset/images/flutter-logo.png')),
-                          ),
+                        child: Container(
+                            width: 200,
+                            height: 150,
+                            /*decoration: BoxDecoration(
+                              color: Colors.red,
+                              borderRadius: BorderRadius.circular(50.0)),*/
+                            child: Image.asset('assets/img/landing-logo.png')),
+                      ),
                     ),
                     SizedBox(
                       height: 80,
@@ -74,7 +74,11 @@ class LoginScreenState extends State<LoginScreen> {
                           hintText: 'Username',
                           suffixIcon: IconButton(
                             onPressed: () {},
-                            icon: Icon(Icons.person_outline_outlined),
+                            icon: Image.asset(
+                              'assets/img/01-user-gray.png',
+                              height: 20,
+                            ),
+                            iconSize: 25,
                             color: Colors.grey[400],
                           ),
                           hintStyle: TextStyle(
@@ -110,7 +114,11 @@ class LoginScreenState extends State<LoginScreen> {
                           hintText: 'Password',
                           suffixIcon: IconButton(
                             onPressed: () {},
-                            icon: Icon(Icons.vpn_key_outlined),
+                            icon: Image.asset(
+                              'assets/img/02-password-gray.png',
+                              height: 20,
+                            ),
+                            iconSize: 25,
                             color: Colors.grey[400],
                           ),
                           hintStyle: TextStyle(
@@ -175,8 +183,7 @@ class LoginScreenState extends State<LoginScreen> {
                         )),
                     SizedBox(height: 10),
                     Container(
-                                              width: MediaQuery.of(context).size.width / 1.20,
-
+                        width: MediaQuery.of(context).size.width / 1.20,
                         child: Text('ARE YOU A GHC MEMBER',
                             style: Styles.headerText)),
                     Container(
@@ -187,7 +194,7 @@ class LoginScreenState extends State<LoginScreen> {
                             // unselectedWidgetColor: Styles.appColor,
                           ),
                           child: Row(
-                           // mainAxisAlignment: MainAxisAlignment.center,
+                            // mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Transform.scale(
                                   scale: 1.1,
@@ -220,7 +227,6 @@ class LoginScreenState extends State<LoginScreen> {
                             ],
                           ),
                         )),
-                    
                     SizedBox(height: 10),
                   ],
                 )),
