@@ -21,6 +21,7 @@ class CreatAccountScreenState extends State<CreatAccountScreen> {
   final emailController = TextEditingController();
 
   final _formKeyRegister = GlobalKey<FormState>();
+   bool loginObscureText = true;
 
   String choice;
   bool _autoValidate = false;
@@ -29,6 +30,10 @@ class CreatAccountScreenState extends State<CreatAccountScreen> {
   String firstName;
   String lastName;
   String email;
+  bool ghcMember;
+  bool ghcTenant;
+  String _radioValue;
+  String _memberValue;
 
   @override
   Widget build(BuildContext context) {
@@ -71,6 +76,10 @@ class CreatAccountScreenState extends State<CreatAccountScreen> {
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10.0),
                           ),
+                          focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                    borderSide: BorderSide(color: Colors.grey, width: 1),
+                  ),
                           hintText: 'Firstname',
                           suffixIcon: IconButton(
                             onPressed: () {},
@@ -109,6 +118,10 @@ class CreatAccountScreenState extends State<CreatAccountScreen> {
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10.0),
                           ),
+                          focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                    borderSide: BorderSide(color: Colors.grey, width: 1),
+                  ),
                           hintText: 'Lastname',
                           suffixIcon: IconButton(
                             onPressed: () {},
@@ -147,6 +160,10 @@ class CreatAccountScreenState extends State<CreatAccountScreen> {
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10.0),
                           ),
+                          focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                    borderSide: BorderSide(color: Colors.grey, width: 1),
+                  ),
                           hintText: 'Email',
                           suffixIcon: IconButton(
                             onPressed: () {},
@@ -180,10 +197,15 @@ class CreatAccountScreenState extends State<CreatAccountScreen> {
                           EdgeInsets.symmetric(horizontal: 26, vertical: 5),
                       child: TextFormField(
                         controller: passwordController,
+                         obscureText: loginObscureText,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10.0),
                           ),
+                          focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                    borderSide: BorderSide(color: Colors.grey, width: 1),
+                  ),
                           hintText: 'Password',
                           suffixIcon: IconButton(
                             onPressed: () {},
@@ -206,6 +228,97 @@ class CreatAccountScreenState extends State<CreatAccountScreen> {
                         },
                       ),
                     ),
+                    Container(
+                        width: MediaQuery.of(context).size.width / 1.20,
+                        child: Text('ARE YOU A GHC TENANT',
+                            style: Styles.headerText)),
+                    Container(
+                        width: MediaQuery.of(context).size.width / 1.20,
+                        child: new Theme(
+                          data: new ThemeData(
+                            primarySwatch: Styles.appColor,
+                            // unselectedWidgetColor: Styles.appColor,
+                          ),
+                          child: Row(
+                            // mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Transform.scale(
+                                  scale: 1.1,
+                                  child: Radio(
+                                    value: 'one',
+                                    groupValue: _radioValue,
+                                    onChanged: radioButtonChanges,
+                                  )),
+                              Text(
+                                "Yes",
+                                style: TextStyle(
+                                    color: Colors.grey[400],
+                                    fontSize: 17,
+                                    fontFamily: Styles.fontFamilyMedium),
+                              ),
+                              Transform.scale(
+                                  scale: 1.1,
+                                  child: Radio(
+                                    value: 'two',
+                                    groupValue: _radioValue,
+                                    onChanged: radioButtonChanges,
+                                  )),
+                              Text(
+                                "No",
+                                style: TextStyle(
+                                    color: Colors.grey[400],
+                                    fontSize: 17,
+                                    fontFamily: Styles.fontFamilyMedium),
+                              ),
+                            ],
+                          ),
+                        )),
+                    SizedBox(height: 10),
+                    Container(
+                        width: MediaQuery.of(context).size.width / 1.20,
+                        child: Text('ARE YOU A GHC MEMBER',
+                            style: Styles.headerText)),
+                    Container(
+                        width: MediaQuery.of(context).size.width / 1.20,
+                        child: new Theme(
+                          data: new ThemeData(
+                            primarySwatch: Styles.appColor,
+                            // unselectedWidgetColor: Styles.appColor,
+                          ),
+                          child: Row(
+                            // mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Transform.scale(
+                                  scale: 1.1,
+                                  child: Radio(
+                                    value: 'one',
+                                    groupValue: _memberValue,
+                                    onChanged: radioMemberChanges,
+                                  )),
+                              Text(
+                                "Yes",
+                                style: TextStyle(
+                                    color: Colors.grey[400],
+                                    fontSize: 17,
+                                    fontFamily: Styles.fontFamilyMedium),
+                              ),
+                              Transform.scale(
+                                  scale: 1.1,
+                                  child: Radio(
+                                    value: 'two',
+                                    groupValue: _memberValue,
+                                    onChanged: radioMemberChanges,
+                                  )),
+                              Text(
+                                "No",
+                                style: TextStyle(
+                                    color: Colors.grey[400],
+                                    fontSize: 17,
+                                    fontFamily: Styles.fontFamilyMedium),
+                              ),
+                            ],
+                          ),
+                        )),
                     Container(
                         child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -317,12 +430,7 @@ class CreatAccountScreenState extends State<CreatAccountScreen> {
       AlertMessage().onLoading(context);
       // print("registerModel:$registerModel")
       UserRegisterModel registerModel = new UserRegisterModel(
-        0,
-        firstName,
-        lastName,
-        email,
-        password,
-      );
+          0, firstName, lastName, email, password, ghcMember, ghcTenant);
       service.userRegister(registerModel).then((responce) {
         if (responce.status) {
           Navigator.of(context).pop();
@@ -356,5 +464,41 @@ class CreatAccountScreenState extends State<CreatAccountScreen> {
         _autoValidate = true;
       });
     }
+  }
+
+  void radioButtonChanges(String value) {
+    setState(() {
+      _radioValue = value;
+      switch (value) {
+        case 'one':
+          ghcTenant = true;
+          break;
+        case 'two':
+          ghcTenant = false;
+          break;
+
+        default:
+          choice = null;
+      }
+      // debugPrint(genderReg); //Debug the choice in console
+    });
+  }
+
+  void radioMemberChanges(String value) {
+    setState(() {
+      _memberValue = value;
+      switch (value) {
+        case 'one':
+          ghcMember = true;
+          break;
+        case 'two':
+          ghcMember = false;
+          break;
+
+        default:
+          choice = null;
+      }
+      // debugPrint(genderReg); //Debug the choice in console
+    });
   }
 }

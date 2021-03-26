@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:ghcmobile/alert_message.dart';
 import 'package:ghcmobile/home/home_screen.dart';
@@ -10,7 +9,6 @@ import 'package:ghcmobile/models/globals.dart' as globals;
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../styles.dart';
-import 'createaccount_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -25,8 +23,8 @@ class LoginScreenState extends State<LoginScreen> {
   String choice;
   bool _autoValidate = false;
   String email;
-  String _radioValue;
-  String _memberValue;
+  bool loginObscureText = true;
+
   String password;
 
   @override
@@ -71,6 +69,12 @@ class LoginScreenState extends State<LoginScreen> {
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10.0),
                           ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10.0)),
+                            borderSide:
+                                BorderSide(color: Colors.grey, width: 1),
+                          ),
                           hintText: 'Username',
                           suffixIcon: IconButton(
                             onPressed: () {},
@@ -107,9 +111,16 @@ class LoginScreenState extends State<LoginScreen> {
                           EdgeInsets.symmetric(horizontal: 26, vertical: 5),
                       child: TextFormField(
                         controller: passwordController,
+                        obscureText: loginObscureText,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10.0)),
+                            borderSide:
+                                BorderSide(color: Colors.grey, width: 1),
                           ),
                           hintText: 'Password',
                           suffixIcon: IconButton(
@@ -136,97 +147,6 @@ class LoginScreenState extends State<LoginScreen> {
                     SizedBox(
                       height: 10,
                     ),
-                    Container(
-                        width: MediaQuery.of(context).size.width / 1.20,
-                        child: Text('ARE YOU A GHC MEMBER',
-                            style: Styles.headerText)),
-                    Container(
-                        width: MediaQuery.of(context).size.width / 1.20,
-                        child: new Theme(
-                          data: new ThemeData(
-                            primarySwatch: Styles.appColor,
-                            // unselectedWidgetColor: Styles.appColor,
-                          ),
-                          child: Row(
-                            // mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Transform.scale(
-                                  scale: 1.1,
-                                  child: Radio(
-                                    value: 'one',
-                                    groupValue: _radioValue,
-                                    onChanged: radioButtonChanges,
-                                  )),
-                              Text(
-                                "Yes",
-                                style: TextStyle(
-                                    color: Colors.grey[400],
-                                    fontSize: 17,
-                                    fontFamily: Styles.fontFamilyMedium),
-                              ),
-                              Transform.scale(
-                                  scale: 1.1,
-                                  child: Radio(
-                                    value: 'two',
-                                    groupValue: _radioValue,
-                                    onChanged: radioButtonChanges,
-                                  )),
-                              Text(
-                                "No",
-                                style: TextStyle(
-                                    color: Colors.grey[400],
-                                    fontSize: 17,
-                                    fontFamily: Styles.fontFamilyMedium),
-                              ),
-                            ],
-                          ),
-                        )),
-                    SizedBox(height: 10),
-                    Container(
-                        width: MediaQuery.of(context).size.width / 1.20,
-                        child: Text('ARE YOU A GHC MEMBER',
-                            style: Styles.headerText)),
-                    Container(
-                        width: MediaQuery.of(context).size.width / 1.20,
-                        child: new Theme(
-                          data: new ThemeData(
-                            primarySwatch: Styles.appColor,
-                            // unselectedWidgetColor: Styles.appColor,
-                          ),
-                          child: Row(
-                            // mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Transform.scale(
-                                  scale: 1.1,
-                                  child: Radio(
-                                    value: 'one',
-                                    groupValue: _memberValue,
-                                    onChanged: radioMemberChanges,
-                                  )),
-                              Text(
-                                "Yes",
-                                style: TextStyle(
-                                    color: Colors.grey[400],
-                                    fontSize: 17,
-                                    fontFamily: Styles.fontFamilyMedium),
-                              ),
-                              Transform.scale(
-                                  scale: 1.1,
-                                  child: Radio(
-                                    value: 'two',
-                                    groupValue: _memberValue,
-                                    onChanged: radioMemberChanges,
-                                  )),
-                              Text(
-                                "No",
-                                style: TextStyle(
-                                    color: Colors.grey[400],
-                                    fontSize: 17,
-                                    fontFamily: Styles.fontFamilyMedium),
-                              ),
-                            ],
-                          ),
-                        )),
                     SizedBox(height: 10),
                   ],
                 )),
@@ -269,42 +189,6 @@ class LoginScreenState extends State<LoginScreen> {
             ]));
   }
 
-  void radioButtonChanges(String value) {
-    setState(() {
-      _radioValue = value;
-      switch (value) {
-        case 'one':
-          value = "Yes";
-          break;
-        case 'two':
-          value = "No";
-          break;
-
-        default:
-          choice = null;
-      }
-      // debugPrint(genderReg); //Debug the choice in console
-    });
-  }
-
-  void radioMemberChanges(String value) {
-    setState(() {
-      _memberValue = value;
-      switch (value) {
-        case 'one':
-          value = "Yes";
-          break;
-        case 'two':
-          value = "No";
-          break;
-
-        default:
-          choice = null;
-      }
-      // debugPrint(genderReg); //Debug the choice in console
-    });
-  }
-
   saveData(dynamic data) async {
     final prefs = await SharedPreferences.getInstance();
     print("read=========" + data["userId"].toString());
@@ -323,12 +207,13 @@ class LoginScreenState extends State<LoginScreen> {
     //   prefs.setBool("introPage", true);
     // }
 
-    prefs.setBool("isRememberMe", true);
+    // prefs.setBool("isRememberMe", true);
 
     print('saved $data');
     globals.userId = data["userId"];
-    globals.email = data["userEmail"];
-    globals.apikey = data["apikey"];
+    globals.email = data["email"];
+    globals.apiKey = data["apikey"];
+
     globals.isLoggedIn = true;
   }
 
