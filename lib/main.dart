@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:ghcmobile/styles.dart';
 
 import 'home/home_screen.dart';
-import 'lending_screen.dart';
+import 'landing_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
@@ -83,7 +83,7 @@ class _LoginScreenState extends State<LoginScreen> {
           context, new MaterialPageRoute(builder: (context) => HomePage()));
     } else {
       Navigator.push(context,
-          new MaterialPageRoute(builder: (context) => LendingScreen()));
+          new MaterialPageRoute(builder: (context) => LandingScreen()));
     }
   }
 

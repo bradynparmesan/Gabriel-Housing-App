@@ -345,10 +345,7 @@ class ApplyScreenState extends State<ApplyScreen> {
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0),
                   ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                    borderSide: BorderSide(color: Colors.grey, width: 1),
-                  ),
+                  
                   hintText: '',
                   // suffixIcon: IconButton(
                   //   onPressed: () {},

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:ghcmobile/alert_message.dart';
 import 'package:ghcmobile/home/home_screen.dart';
 import 'package:ghcmobile/main/validator.dart';
+import 'package:ghcmobile/models/globals.dart';
 import 'package:ghcmobile/service/account_service.dart';
 import 'package:ghcmobile/models/globals.dart' as globals;
 
@@ -201,7 +202,7 @@ class LoginScreenState extends State<LoginScreen> {
     prefs.setString("Password", data["password"]);
     prefs.setString("ApiKey", data["apikey"]);
     prefs.setBool("lendingpage", true);
-
+   print("globals.apiKey===$apiKey");
     // if (isRememberMe) {
     //  // emailLogin = widget.userDetails.email;
     //   prefs.setBool("introPage", true);

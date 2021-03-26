@@ -23,29 +23,29 @@ class AboutScreen extends State<AboutPage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        iconTheme: IconThemeData(
-          color: Colors.black,
-          //change your color here
-        ),
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            SizedBox(width: 100),
-            Container(
-                //padding: const EdgeInsets.only(left: 15),
-                // width: 220,
-                // height: 150,
-                // alignment: Alignment.center,
-                child: Image.asset(
-              "assets/img/logo.jpeg",
-              fit: BoxFit.contain,
-              height: 32,
-            ))
-          ],
-        ),
-      ),
+      // appBar: AppBar(
+      //   backgroundColor: Colors.white,
+      //   iconTheme: IconThemeData(
+      //     color: Colors.black,
+      //     //change your color here
+      //   ),
+      //   title: Row(
+      //     mainAxisAlignment: MainAxisAlignment.start,
+      //     children: [
+      //       SizedBox(width: 100),
+      //       Container(
+      //           //padding: const EdgeInsets.only(left: 15),
+      //           // width: 220,
+      //           // height: 150,
+      //           // alignment: Alignment.center,
+      //           child: Image.asset(
+      //         "assets/img/logo.jpeg",
+      //         fit: BoxFit.contain,
+      //         height: 32,
+      //       ))
+      //     ],
+      //   ),
+      // ),
       body: WillPopScope(
         onWillPop: null,
         child: Stack(
