@@ -202,7 +202,7 @@ class LoginScreenState extends State<LoginScreen> {
     prefs.setString("Password", data["password"]);
     prefs.setString("ApiKey", data["apikey"]);
     prefs.setBool("lendingpage", true);
-   print("globals.apiKey===$apiKey");
+    print("globals.apiKey===$apiKey");
     // if (isRememberMe) {
     //  // emailLogin = widget.userDetails.email;
     //   prefs.setBool("introPage", true);
@@ -213,8 +213,8 @@ class LoginScreenState extends State<LoginScreen> {
     print('saved $data');
     globals.userId = data["userId"];
     globals.email = data["email"];
-    globals.apiKey = data["apikey"];
-
+    globals.apiKey = data["apiKey"];
+    print("globals.apiKey===${globals.apiKey}");
     globals.isLoggedIn = true;
   }
 

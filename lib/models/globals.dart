@@ -10,4 +10,4 @@ String email;
 String password;
 String firstName;
 String lastname;
-String apiKey;
+ String apiKey;
