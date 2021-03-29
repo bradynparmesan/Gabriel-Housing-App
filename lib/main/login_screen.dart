@@ -198,9 +198,9 @@ class LoginScreenState extends State<LoginScreen> {
     prefs.setString("FirstName", data["firstName"]);
     prefs.setString("LastName", data["lastName"]);
     prefs.setString("Email", data["email"]);
-
-    prefs.setString("Password", data["password"]);
-    prefs.setString("ApiKey", data["apikey"]);
+    // prefs.setString("GhcMember", data["ghcMember"]);
+    // prefs.setString("GhcTenant", data["ghcTenant"]);   
+    prefs.setString("API_KEY", data["apiKey"]);
     prefs.setBool("lendingpage", true);
     print("globals.apiKey===$apiKey");
     // if (isRememberMe) {

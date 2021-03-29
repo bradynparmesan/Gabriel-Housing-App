@@ -6,6 +6,8 @@ import 'about_screen.dart';
 import 'apply_screen.dart';
 import 'maintenance_screen.dart';
 import 'message_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:ghcmobile/models/globals.dart' as globals;
 
 class HomePage extends StatefulWidget {
   @override
@@ -15,16 +17,18 @@ class HomePage extends StatefulWidget {
 class HomeScreen extends State<HomePage> with TickerProviderStateMixin {
   List<Tab> tabList = List();
   TabController _tabController;
+  String userId;
   int _currentIndex = 0;
   int currentIndex = 0;
   @override
   void initState() {
+    read();
     tabList.add(new Tab(
       text: 'Home',
       icon: Image.asset(
         'assets/img/03-home-gray.png',
-        
-         width: 25,
+
+        width: 25,
         // color: Colors.white,
       ),
     ));
@@ -529,5 +533,23 @@ class HomeScreen extends State<HomePage> with TickerProviderStateMixin {
         )),
       ],
     );
+  }
+
+  void read() async {
+    print('read: $read');
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      userId = prefs.getString('UserId');
+      globals.apiKey = prefs.getString('API_KEY');
+      print("api_key=======${globals.apiKey}");
+    });
+    print("read====" + userId);
+    if (userId != null && userId.isNotEmpty) {
+      globals.userId = int.parse(userId);
+      // getUserDetails();
+      // getTemperatureValue();
+    } else {
+      globals.userId = 0;
+    }
   }
 }

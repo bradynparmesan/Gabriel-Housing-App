@@ -49,7 +49,7 @@ class AccountService {
 
   Future<ResponceModel> userApplyData(UserApply userApply) async {
     // print("call readySetting Api:$UserApplyData ");
-    var url = Uri.parse(globals.SERVICE_URL + "Account/UserApplyData");
+    var url = Uri.parse(globals.SERVICE_URL + "Account/UserApply");
     var data = {
       'UserId': userApply.userId,
       'ApplyFor': userApply.applyFor,
@@ -63,6 +63,7 @@ class AccountService {
       'Number Of Dependents': userApply.dependents,
       'Indigenonus': userApply.indigenonus,
     };
+       print("API_Key: ${globals.apiKey}");
 
     //encode Map to JSON
     var body = json.encode(data);
@@ -73,7 +74,7 @@ class AccountService {
     var response = await http.post(url,
         headers: {
           "Content-Type": "application/json",
-          "API_KEY": globals.apiKey
+          "API_Key": globals.apiKey,
         },
         body: body);
     print("${response.statusCode}");
@@ -87,17 +88,17 @@ class AccountService {
       'UserId': globals.userId,
       'Address': maintenance.address,
       'ProblemOfDescription': maintenance.description,
-      'ProblemPhoto': maintenance.problemofphoto,
+      'ProblemPhoto': 1,
       'ContactInfo': maintenance.contact,
     };
-print("Api_Key: ${globals.apiKey}");
+    print("API_Key: ${globals.apiKey}");
     var body = json.encode(data);
     print("$body");
     print("$url");
     var response = await http.post(url,
         headers: {
           "Content-Type": "application/json",
-          "Api_Key": globals.apiKey,
+          "API_Key": globals.apiKey,
         },
         body: body);
     print("${response.statusCode}");

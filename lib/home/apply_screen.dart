@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ghcmobile/alert_message.dart';
+import 'package:ghcmobile/home/home_screen.dart';
 import 'package:ghcmobile/main/validator.dart';
 import 'package:ghcmobile/model/commom_model.dart';
 import 'package:ghcmobile/service/account_service.dart';
@@ -42,25 +43,25 @@ class ApplyScreenState extends State<ApplyScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        iconTheme: IconThemeData(
-          color: Colors.black,
-          //change your color here
-        ),
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            SizedBox(width: 100),
-            Container(
-                child: Image.asset(
-              "assets/img/logo.jpeg",
-              fit: BoxFit.contain,
-              height: 32,
-            ))
-          ],
-        ),
-      ),
+      // appBar: AppBar(
+      //   backgroundColor: Colors.white,
+      //   iconTheme: IconThemeData(
+      //     color: Colors.black,
+      //     //change your color here
+      //   ),
+      //   title: Row(
+      //     mainAxisAlignment: MainAxisAlignment.start,
+      //     children: [
+      //       SizedBox(width: 100),
+      //       Container(
+      //           child: Image.asset(
+      //         "assets/img/logo.jpeg",
+      //         fit: BoxFit.contain,
+      //         height: 32,
+      //       ))
+      //     ],
+      //   ),
+      // ),
       body: WillPopScope(
         onWillPop: null,
         child: Stack(
@@ -345,7 +346,11 @@ class ApplyScreenState extends State<ApplyScreen> {
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0),
                   ),
-                  
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                    borderSide: BorderSide(color: Colors.grey, width: 1),
+                  ),
+
                   hintText: '',
                   // suffixIcon: IconButton(
                   //   onPressed: () {},
@@ -617,11 +622,10 @@ class ApplyScreenState extends State<ApplyScreen> {
 
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
-      //  AlertMessage().onLoading(context);
+      AlertMessage().onLoading(context);
       // print("registerModel:$registerModel")
       UserApply userApply = new UserApply();
       userApply.userId = globals.userId;
-
       userApply.email = emailController.text;
       userApply.fullLegalName = legalNameController.text;
       userApply.indigenonus = indigeonus;
@@ -632,19 +636,17 @@ class ApplyScreenState extends State<ApplyScreen> {
       userApply.dependents = dependentsController.text;
       userApply.housingNeed = housingNeed;
       userApply.applyFor = applyFor;
-
       service.userApplyData(userApply).then((responce) {
         if (responce.status) {
           Navigator.of(context).pop();
           AlertMessage().showMessages(responce.message);
+          Navigator.push(
+              context, new MaterialPageRoute(builder: (context) => HomePage()));
         } else {
           Navigator.pop(context);
-
-          AlertMessage().showMessages(responce.message);
           print('error  : ${responce.message}');
         }
       }).catchError((error) {
-        // Navigator.pop(context);
         Navigator.pop(context);
         print('error reg : $error');
         // print('error  : ${responce.message}');

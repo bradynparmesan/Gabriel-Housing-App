@@ -70,6 +70,8 @@ class _LoginScreenState extends State<LoginScreen> {
   String lastName = "";
   String email = "";
   String password = "";
+  String ghcMember = "";
+  String ghcTenant = "";
   bool lendingpage = false;
 
   startTime() async {
@@ -104,12 +106,23 @@ class _LoginScreenState extends State<LoginScreen> {
 
     setState(() {
       lendingpage = prefs.containsKey('lendingpage') ? true : false;
-      userId = prefs.getString('userId').toString();
-      print("====user_id====" + userId.toString());
+      userId = prefs.getString('UserId').toString();
+      print("====userId====" + userId.toString());
       email = prefs.getString('UserName');
       print("====email====" + email.toString());
-      //   role = prefs.getString('Role');
-      //  print("====role===="+role.toString());
+      password = prefs.getString('Password');
+      print("====password====" + password.toString());
+      firstName = prefs.getString('FirstName');
+      print("====firstName====" + firstName.toString());
+      lastName = prefs.getString('LastName');
+      print("====lastName====" + lastName.toString());
+      ghcMember = prefs.getString('GhcMember');
+      print("====ghcMember====" + ghcMember.toString());
+      ghcTenant = prefs.getString('GhcTenant');
+      print("====ghcTenant====" + ghcTenant.toString());
+
+      // firstName = prefs.getString('G');
+      // print("====firstName====" + firstName.toString());
     });
   }
 }
