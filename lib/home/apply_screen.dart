@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:ghcmobile/alert_message.dart';
 import 'package:ghcmobile/home/home_screen.dart';
 import 'package:ghcmobile/main/validator.dart';
@@ -43,27 +44,27 @@ class ApplyScreenState extends State<ApplyScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   backgroundColor: Colors.white,
-      //   iconTheme: IconThemeData(
-      //     color: Colors.black,
-      //     //change your color here
-      //   ),
-      //   title: Row(
-      //     mainAxisAlignment: MainAxisAlignment.start,
-      //     children: [
-      //       SizedBox(width: 100),
-      //       Container(
-      //           child: Image.asset(
-      //         "assets/img/logo.jpeg",
-      //         fit: BoxFit.contain,
-      //         height: 32,
-      //       ))
-      //     ],
-      //   ),
-      // ),
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        iconTheme: IconThemeData(
+          color: Colors.black,
+          //change your color here
+        ),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            SizedBox(width: 100),
+            Container(
+                child: Image.asset(
+              "assets/img/logo.jpeg",
+              fit: BoxFit.contain,
+              height: 32,
+            ))
+          ],
+        ),
+      ),
       body: WillPopScope(
-        onWillPop: null,
+        onWillPop: _onBackPressed,
         child: Stack(
           children: <Widget>[applyPage(context)],
         ),
@@ -262,6 +263,7 @@ class ApplyScreenState extends State<ApplyScreen> {
               padding: EdgeInsets.symmetric(horizontal: 26, vertical: 5),
               child: TextFormField(
                 controller: phoneNumberController,
+                keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0),
@@ -512,7 +514,7 @@ class ApplyScreenState extends State<ApplyScreen> {
             ),
             Container(
                 width: MediaQuery.of(context).size.width / 1.20,
-                child: Text('Are you indigenonus?',
+                child: Text('Are you indigenous?',
                     style: TextStyle(
                         color: Styles.buttoncolor,
                         fontFamily: Styles.fontFamilyBold,
@@ -719,5 +721,9 @@ class ApplyScreenState extends State<ApplyScreen> {
       }
       // debugPrint(genderReg); //Debug the choice in console
     });
+  }
+
+  Future<bool> _onBackPressed() {
+    return Future.value();
   }
 }

@@ -25,7 +25,7 @@ class MaintenanceScreen extends State<MaintenancePage> {
   final contactController = TextEditingController();
   final resetController = TextEditingController();
   String socialReg;
- 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,7 +53,7 @@ class MaintenanceScreen extends State<MaintenancePage> {
       //   ),
       // ),
       body: WillPopScope(
-        onWillPop: null,
+        onWillPop: _onBackPressed,
         child: Stack(
           children: <Widget>[buildmain(context)],
         ),
@@ -64,7 +64,6 @@ class MaintenanceScreen extends State<MaintenancePage> {
   }
 
   Future<bool> _onBackPressed() {
-    SystemNavigator.pop(); //  exit(0);
     return Future.value(false);
   }
 
@@ -103,7 +102,7 @@ class MaintenanceScreen extends State<MaintenancePage> {
                           padding:
                               EdgeInsets.symmetric(horizontal: 26, vertical: 5),
                           child: TextFormField(
-                           controller: addressController,
+                            controller: addressController,
                             decoration: InputDecoration(
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10.0),
@@ -225,7 +224,7 @@ class MaintenanceScreen extends State<MaintenancePage> {
                           padding:
                               EdgeInsets.symmetric(horizontal: 26, vertical: 5),
                           child: TextFormField(
-                             controller: contactController,
+                            controller: contactController,
                             decoration: InputDecoration(
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10.0),
@@ -268,55 +267,56 @@ class MaintenanceScreen extends State<MaintenancePage> {
                 height: 45,
                 width: 300,
                 child: RaisedButton(
-                    child: Text('SUBMIT',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontFamily: Styles.fontFamilyBold,
-                            fontSize: 22,
-                            fontWeight: FontWeight.bold)),
-                    color: Styles.buttoncolor,
-                    shape: new RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(5.0),
-                    ),
-                    onPressed: _mainatenance,
-                    ),
+                  child: Text('SUBMIT',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontFamily: Styles.fontFamilyBold,
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold)),
+                  color: Styles.buttoncolor,
+                  shape: new RoundedRectangleBorder(
+                    borderRadius: new BorderRadius.circular(5.0),
+                  ),
+                  onPressed: _mainatenance,
+                ),
               )
             ]));
   }
 
   void _mainatenance() {
-   
-    if(_formKey.currentState.validate() ){
+    if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
       AlertMessage().onLoading(context);
-      Maintenance maintenance=new Maintenance();
-      maintenance.userId=globals.userId;
-      maintenance.address=addressController.text;
-      maintenance.description=textDescController.text;
-      maintenance.social=socialReg;
-      maintenance.contact=contactController.text;
-       print("userId=====${maintenance.userId}");
+      Maintenance maintenance = new Maintenance();
+      maintenance.userId = globals.userId;
+      maintenance.address = addressController.text;
+      maintenance.description = textDescController.text;
+      maintenance.social = socialReg;
+      maintenance.contact = contactController.text;
+      print("userId=====${maintenance.userId}");
       print("address=====${maintenance.address} ");
       print("description=====${maintenance.description}");
       print("contact=====${maintenance.contact}");
-    
+
       print("socialReg=====$socialReg");
-     AccountService().userMaintenance(maintenance).then((res) => {
-       if(res.status){
-          Navigator.of(context).pop(),
-          
-          AlertMessage().showMessages(res.message),
-       }else{
-
-       }
-
-     }).catchError((onError) {
+      AccountService()
+          .userMaintenance(maintenance)
+          .then((res) => {
+                if (res.status)
+                  {
+                    Navigator.of(context).pop(),
+                    AlertMessage().showMessages(res.message),
+                  }
+                else
+                  {}
+              })
+          .catchError((onError) {
         print(onError);
         // AlertMessage().showMessages(onError.toString());
         Navigator.pop(context);
       });
-    }else{
-        setState(() {
+    } else {
+      setState(() {
         _autoValidate = true;
       });
     }

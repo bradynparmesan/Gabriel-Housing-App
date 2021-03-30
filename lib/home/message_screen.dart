@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:ghcmobile/styles.dart';
 
 class MessageScreen extends StatefulWidget {
@@ -36,7 +37,7 @@ class MessageScreenState extends State<MessageScreen> {
       //   ),
       // ),
       body: WillPopScope(
-        onWillPop: null,
+        onWillPop: _onBackPressed,
         child: Stack(
           children: <Widget>[messagePage(context)],
         ),
@@ -110,5 +111,9 @@ class MessageScreenState extends State<MessageScreen> {
         ))
       ],
     );
+  }
+
+  Future<bool> _onBackPressed() {
+    return Future.value();
   }
 }

@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-
 import '../styles.dart';
 
 class AboutPage extends StatefulWidget {
@@ -47,7 +46,7 @@ class AboutScreen extends State<AboutPage> with TickerProviderStateMixin {
       //   ),
       // ),
       body: WillPopScope(
-        onWillPop: null,
+        onWillPop: _onBackPressed,
         child: Stack(
           children: <Widget>[buildabout(context)],
         ),
@@ -57,7 +56,6 @@ class AboutScreen extends State<AboutPage> with TickerProviderStateMixin {
   }
 
   Future<bool> _onBackPressed() {
-    SystemNavigator.pop(); //  exit(0);
     return Future.value(false);
   }
 
@@ -76,8 +74,8 @@ class AboutScreen extends State<AboutPage> with TickerProviderStateMixin {
       SizedBox(height: 10),
       Container(
           //padding: const EdgeInsets.all(200),
-          width: 200,
-          height: 200,
+          // width: 100,
+          height: 230,
           decoration: BoxDecoration(
             // color: Colors.lightBlueAccent,
             border: Border.all(
@@ -98,10 +96,9 @@ class AboutScreen extends State<AboutPage> with TickerProviderStateMixin {
         child: Text(
           "CONTACT US",
           style: TextStyle(
-            fontSize: 15,
-            color: Colors.black,
-            fontFamily: Styles.fontFamilyBold
-          ),
+              fontSize: 15,
+              color: Colors.black,
+              fontFamily: Styles.fontFamilyBold),
         ),
       ),
       Container(
@@ -120,20 +117,16 @@ class AboutScreen extends State<AboutPage> with TickerProviderStateMixin {
             child: Text(
               'Email :',
               style: TextStyle(
-                fontSize: 15,
-                color: Styles.buttoncolor,
-                fontFamily: Styles.fontFamilyBold
-              ),
+                  fontSize: 15,
+                  color: Styles.buttoncolor,
+                  fontFamily: Styles.fontFamilyBold),
             ),
           ),
           Container(
               child: Linkify(
             onOpen: _onOpen,
             text: "reception@gabrielhousing.com",
-            style: TextStyle(
-              fontSize: 13,
-              fontFamily: Styles.fontFamilyMedium
-            ),
+            style: TextStyle(fontSize: 13, fontFamily: Styles.fontFamilyMedium),
           ))
         ],
       )),
@@ -153,20 +146,16 @@ class AboutScreen extends State<AboutPage> with TickerProviderStateMixin {
             child: Text(
               'Phone :',
               style: TextStyle(
-                fontSize: 15,
-                color: Styles.buttoncolor,
-                  fontFamily: Styles.fontFamilyBold
-              ),
+                  fontSize: 15,
+                  color: Styles.buttoncolor,
+                  fontFamily: Styles.fontFamilyBold),
             ),
           ),
           Container(
               child: Linkify(
             onOpen: _onPhone,
             text: "306-775-2905",
-            style: TextStyle(
-              fontSize: 13,
-                fontFamily: Styles.fontFamilyMedium
-            ),
+            style: TextStyle(fontSize: 13, fontFamily: Styles.fontFamilyMedium),
             // child:FlatButton(
             // child: Text("Test Call"),
             // onPressed: () async{

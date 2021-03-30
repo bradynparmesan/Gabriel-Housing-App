@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:ghcmobile/admin/user_admin.dart';
 
 import '../styles.dart';
 import 'about_screen.dart';
@@ -217,6 +218,7 @@ class HomeScreen extends State<HomePage> with TickerProviderStateMixin {
                   child: Stack(
                     children: [
                       Container(
+                        // padding: EdgeInsets.only(left:35,right:35,top: 15),
                         alignment: Alignment.center,
                         // width: MediaQuery.of(context).size.width / 2,
                         // height: MediaQuery.of(context).size.height / 4,
@@ -224,20 +226,22 @@ class HomeScreen extends State<HomePage> with TickerProviderStateMixin {
 
                         //width:100,
                         height: 150,
-                        margin: EdgeInsets.all(0.0),
+                        // margin: EdgeInsets.all(20.0),
                         decoration: BoxDecoration(
                           color: Styles.buttoncolor,
-
                           border: Border.all(
                             color: Colors.white,
                             width: 18,
                           ),
-                          borderRadius: BorderRadius.circular(28),
-                          // image: DecorationImage(
-                          //   image: AssetImage(widget.image),
-                          //   fit: BoxFit.fill,
-                          // )
                         ),
+
+                        //  // borderRadius: BorderRadius.circular(8),
+                        //   // image: DecorationImage(
+                        //   //   image: AssetImage(widget.image),
+                        //   //   fit: BoxFit.fill,
+                        //   // )
+                        //  ),
+
                         child: IconButton(
                             icon: Image.asset(
                               'assets/img/04-apply-icon.png',
@@ -307,7 +311,7 @@ class HomeScreen extends State<HomePage> with TickerProviderStateMixin {
                             color: Colors.white,
                             width: 18,
                           ),
-                          borderRadius: BorderRadius.circular(28),
+                          // borderRadius: BorderRadius.circular(28),
                           // image: DecorationImage(
                           //   image: AssetImage(widget.image),
                           //   fit: BoxFit.fill,
@@ -324,7 +328,7 @@ class HomeScreen extends State<HomePage> with TickerProviderStateMixin {
                               await Navigator.push(
                                   context,
                                   new MaterialPageRoute(
-                                      builder: (context) => MessageScreen()));
+                                      builder: (context) => AdminScreen()));
                             }),
                       ),
                       Container(
@@ -387,7 +391,7 @@ class HomeScreen extends State<HomePage> with TickerProviderStateMixin {
                             color: Colors.white,
                             width: 18,
                           ),
-                          borderRadius: BorderRadius.circular(28),
+                          //borderRadius: BorderRadius.circular(28),
                           // image: DecorationImage(
                           //   image: AssetImage(widget.image),
                           //   fit: BoxFit.fill,
@@ -480,7 +484,7 @@ class HomeScreen extends State<HomePage> with TickerProviderStateMixin {
                             color: Colors.white,
                             width: 18,
                           ),
-                          borderRadius: BorderRadius.circular(28),
+                          // borderRadius: BorderRadius.circular(28),
                           // image: DecorationImage(
                           //   image: AssetImage(widget.image),
                           //   fit: BoxFit.fill,

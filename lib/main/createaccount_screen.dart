@@ -21,7 +21,7 @@ class CreatAccountScreenState extends State<CreatAccountScreen> {
   final emailController = TextEditingController();
 
   final _formKeyRegister = GlobalKey<FormState>();
-   bool loginObscureText = true;
+  bool loginObscureText = true;
 
   String choice;
   bool _autoValidate = false;
@@ -62,24 +62,27 @@ class CreatAccountScreenState extends State<CreatAccountScreen> {
                       height: 40,
                     ),
                     Container(
-                        width: MediaQuery.of(context).size.width / 1.20,
+                        width: MediaQuery.of(context).size.width / 1.25,
 
                         // padding: const EdgeInsets.only(right: 240),
-                        child: Text('FIRSTNAME', style: Styles.headerText)),
+                        child: Text('FIRST NAME', style: Styles.headerText)),
                     Padding(
                       //padding: const EdgeInsets.only(left:15.0,right: 15.0,top:0,bottom: 0),
                       padding:
                           EdgeInsets.symmetric(horizontal: 26, vertical: 5),
                       child: TextFormField(
                         controller: firstnameController,
+                        textInputAction: TextInputAction.next,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10.0),
                           ),
                           focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                    borderSide: BorderSide(color: Colors.grey, width: 1),
-                  ),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10.0)),
+                            borderSide:
+                                BorderSide(color: Colors.grey, width: 1),
+                          ),
                           hintText: 'Firstname',
                           suffixIcon: IconButton(
                             onPressed: () {},
@@ -106,22 +109,25 @@ class CreatAccountScreenState extends State<CreatAccountScreen> {
                       height: 10,
                     ),
                     Container(
-                        width: MediaQuery.of(context).size.width / 1.20,
-                        child: Text('LASTNAME', style: Styles.headerText)),
+                        width: MediaQuery.of(context).size.width / 1.25,
+                        child: Text('LAST NAME', style: Styles.headerText)),
                     Padding(
                       //padding: const EdgeInsets.only(left:15.0,right: 15.0,top:0,bottom: 0),
                       padding:
                           EdgeInsets.symmetric(horizontal: 26, vertical: 5),
                       child: TextFormField(
                         controller: lastnameController,
+                        textInputAction: TextInputAction.next,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10.0),
                           ),
                           focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                    borderSide: BorderSide(color: Colors.grey, width: 1),
-                  ),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10.0)),
+                            borderSide:
+                                BorderSide(color: Colors.grey, width: 1),
+                          ),
                           hintText: 'Lastname',
                           suffixIcon: IconButton(
                             onPressed: () {},
@@ -148,7 +154,7 @@ class CreatAccountScreenState extends State<CreatAccountScreen> {
                       height: 10,
                     ),
                     Container(
-                        width: MediaQuery.of(context).size.width / 1.20,
+                        width: MediaQuery.of(context).size.width / 1.25,
                         child: Text('EMAIL', style: Styles.headerText)),
                     Padding(
                       //padding: const EdgeInsets.only(left:15.0,right: 15.0,top:0,bottom: 0),
@@ -156,14 +162,17 @@ class CreatAccountScreenState extends State<CreatAccountScreen> {
                           EdgeInsets.symmetric(horizontal: 26, vertical: 5),
                       child: TextFormField(
                         controller: emailController,
+                        textInputAction: TextInputAction.next,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10.0),
                           ),
                           focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                    borderSide: BorderSide(color: Colors.grey, width: 1),
-                  ),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10.0)),
+                            borderSide:
+                                BorderSide(color: Colors.grey, width: 1),
+                          ),
                           hintText: 'Email',
                           suffixIcon: IconButton(
                             onPressed: () {},
@@ -190,22 +199,25 @@ class CreatAccountScreenState extends State<CreatAccountScreen> {
                       height: 10,
                     ),
                     Container(
-                        width: MediaQuery.of(context).size.width / 1.20,
+                        width: MediaQuery.of(context).size.width / 1.25,
                         child: Text('PASSWORD', style: Styles.headerText)),
                     Padding(
                       padding:
                           EdgeInsets.symmetric(horizontal: 26, vertical: 5),
                       child: TextFormField(
                         controller: passwordController,
-                         obscureText: loginObscureText,
+                        textInputAction: TextInputAction.next,
+                        obscureText: loginObscureText,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10.0),
                           ),
                           focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                    borderSide: BorderSide(color: Colors.grey, width: 1),
-                  ),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(10.0)),
+                            borderSide:
+                                BorderSide(color: Colors.grey, width: 1),
+                          ),
                           hintText: 'Password',
                           suffixIcon: IconButton(
                             onPressed: () {},
@@ -216,6 +228,7 @@ class CreatAccountScreenState extends State<CreatAccountScreen> {
                             iconSize: 25,
                             color: Colors.grey[400],
                           ),
+                          errorMaxLines: 2,
                           hintStyle: TextStyle(
                             color: Colors.grey[400],
                             fontFamily: Styles.fontFamilyMedium,
@@ -228,9 +241,10 @@ class CreatAccountScreenState extends State<CreatAccountScreen> {
                         },
                       ),
                     ),
+                    SizedBox(height: 10),
                     Container(
-                        width: MediaQuery.of(context).size.width / 1.20,
-                        child: Text('ARE YOU A GHC TENANT',
+                        width: MediaQuery.of(context).size.width / 1.25,
+                        child: Text('ARE YOU A GHC MEMBER?',
                             style: Styles.headerText)),
                     Container(
                         width: MediaQuery.of(context).size.width / 1.20,
@@ -246,8 +260,8 @@ class CreatAccountScreenState extends State<CreatAccountScreen> {
                                   scale: 1.1,
                                   child: Radio(
                                     value: 'one',
-                                    groupValue: _radioValue,
-                                    onChanged: radioButtonChanges,
+                                    groupValue: _memberValue,
+                                    onChanged: radioMemberChanges,
                                   )),
                               Text(
                                 "Yes",
@@ -260,8 +274,8 @@ class CreatAccountScreenState extends State<CreatAccountScreen> {
                                   scale: 1.1,
                                   child: Radio(
                                     value: 'two',
-                                    groupValue: _radioValue,
-                                    onChanged: radioButtonChanges,
+                                    groupValue: _memberValue,
+                                    onChanged: radioMemberChanges,
                                   )),
                               Text(
                                 "No",
@@ -273,10 +287,9 @@ class CreatAccountScreenState extends State<CreatAccountScreen> {
                             ],
                           ),
                         )),
-                    SizedBox(height: 10),
                     Container(
-                        width: MediaQuery.of(context).size.width / 1.20,
-                        child: Text('ARE YOU A GHC MEMBER',
+                        width: MediaQuery.of(context).size.width / 1.25,
+                        child: Text('ARE YOU A GHC TENANT?',
                             style: Styles.headerText)),
                     Container(
                         width: MediaQuery.of(context).size.width / 1.20,
@@ -292,8 +305,8 @@ class CreatAccountScreenState extends State<CreatAccountScreen> {
                                   scale: 1.1,
                                   child: Radio(
                                     value: 'one',
-                                    groupValue: _memberValue,
-                                    onChanged: radioMemberChanges,
+                                    groupValue: _radioValue,
+                                    onChanged: radioButtonChanges,
                                   )),
                               Text(
                                 "Yes",
@@ -306,8 +319,8 @@ class CreatAccountScreenState extends State<CreatAccountScreen> {
                                   scale: 1.1,
                                   child: Radio(
                                     value: 'two',
-                                    groupValue: _memberValue,
-                                    onChanged: radioMemberChanges,
+                                    groupValue: _radioValue,
+                                    onChanged: radioButtonChanges,
                                   )),
                               Text(
                                 "No",
@@ -427,13 +440,15 @@ class CreatAccountScreenState extends State<CreatAccountScreen> {
 
     if (_formKeyRegister.currentState.validate()) {
       _formKeyRegister.currentState.save();
-      AlertMessage().onLoading(context);
+      // AlertMessage().onLoading(context);
       // print("registerModel:$registerModel")
       UserRegisterModel registerModel = new UserRegisterModel(
           0, firstName, lastName, email, password, ghcMember, ghcTenant);
       service.userRegister(registerModel).then((responce) {
         if (responce.status) {
-          Navigator.of(context).pop();
+          Navigator.push(context,
+              new MaterialPageRoute(builder: (context) => LoginScreen()));
+          // Navigator.of(context).pop();
           AlertMessage().showMessages(responce.message);
           setState(() {
             firstName = "";
@@ -448,13 +463,10 @@ class CreatAccountScreenState extends State<CreatAccountScreen> {
             // this._tabController.index = 0;
           });
         } else {
-          Navigator.pop(context);
-
           AlertMessage().showMessages(responce.message);
           print('error  : ${responce.message}');
         }
       }).catchError((error) {
-        Navigator.pop(context);
         Navigator.pop(context);
         print('error reg : $error');
         // print('error  : ${responce.message}');

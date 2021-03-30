@@ -39,9 +39,13 @@ class LandingScreenState extends State<LandingScreen> {
                 
               ),
             ),
-            // SizedBox(
-            //   height:100
-            // ),
+             Container(
+            padding: EdgeInsets.all(65.0),
+           // alignment: Alignment.topCenter,
+            child: Image.asset(
+              "assets/img/landing-logo.png",
+            ),
+          ),
              
         ],
       ),
@@ -54,33 +58,8 @@ class LandingScreenState extends State<LandingScreen> {
         Container(
           child: Column(
             children: [
-              
-              
               SizedBox(
-                height:150
-              ),
-              Container(
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 180,
-                      child: ListView(children: <Widget>[
-                        Container(
-                          // color:Styles.white,
-                          width: 400,
-                          //height: 250,
-                          alignment: Alignment.bottomCenter,
-                          child: Image.asset("assets/img/landing-logo.png",
-                           width: 300, height: 180, 
-                              ),
-                        ),
-                      ]),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height:150
+                height:530
               ),
               Container(
                   child: RaisedButton(
