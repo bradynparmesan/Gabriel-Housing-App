@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_linkify/flutter_linkify.dart';
+import 'package:ghcmobile/home/home_screen.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../styles.dart';
@@ -11,7 +12,7 @@ class AboutPage extends StatefulWidget {
 }
 
 class AboutScreen extends State<AboutPage> with TickerProviderStateMixin {
-  int currentIndex = 0;
+  int currentIndex = 3;
   TextEditingController _numberCtrl = new TextEditingController();
   @override
   void initState() {
@@ -22,29 +23,29 @@ class AboutScreen extends State<AboutPage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   backgroundColor: Colors.white,
-      //   iconTheme: IconThemeData(
-      //     color: Colors.black,
-      //     //change your color here
-      //   ),
-      //   title: Row(
-      //     mainAxisAlignment: MainAxisAlignment.start,
-      //     children: [
-      //       SizedBox(width: 100),
-      //       Container(
-      //           //padding: const EdgeInsets.only(left: 15),
-      //           // width: 220,
-      //           // height: 150,
-      //           // alignment: Alignment.center,
-      //           child: Image.asset(
-      //         "assets/img/logo.jpeg",
-      //         fit: BoxFit.contain,
-      //         height: 32,
-      //       ))
-      //     ],
-      //   ),
-      // ),
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        iconTheme: IconThemeData(
+          color: Colors.white,
+          //change your color here
+        ),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            SizedBox(width: 100),
+            Container(
+                //padding: const EdgeInsets.only(left: 15),
+                // width: 220,
+                // height: 150,
+                // alignment: Alignment.center,
+                child: Image.asset(
+              "assets/img/logo.jpeg",
+              fit: BoxFit.contain,
+              height: 32,
+            ))
+          ],
+        ),
+      ),
       body: WillPopScope(
         onWillPop: _onBackPressed,
         child: Stack(
@@ -56,6 +57,9 @@ class AboutScreen extends State<AboutPage> with TickerProviderStateMixin {
   }
 
   Future<bool> _onBackPressed() {
+    print("object===");
+    Navigator.push(context,
+        MaterialPageRoute(builder: (BuildContext context) => HomePage()));
     return Future.value(false);
   }
 
@@ -115,7 +119,7 @@ class AboutScreen extends State<AboutPage> with TickerProviderStateMixin {
           ),
           Container(
             child: Text(
-              'Email :',
+              'Email  :',
               style: TextStyle(
                   fontSize: 15,
                   color: Styles.buttoncolor,

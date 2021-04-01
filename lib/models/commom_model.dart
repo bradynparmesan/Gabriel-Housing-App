@@ -10,21 +10,20 @@ class UserApply {
   String email;
   String dependents;
   String housingNeed;
-  
-  UserApply(
-      {this.userId,
-      this.applyFor,
-      this.fullLegalName,
-      this.indigenonus,
-      this.address,
-      this.city,
-      this.postalCode,
-      this.phoneNumber,
-      this.email,
-      this.dependents,
-      this.housingNeed,
-      
-      });
+
+  UserApply({
+    this.userId,
+    this.applyFor,
+    this.fullLegalName,
+    this.indigenonus,
+    this.address,
+    this.city,
+    this.postalCode,
+    this.phoneNumber,
+    this.email,
+    this.dependents,
+    this.housingNeed,
+  });
   factory UserApply.fromJson(Map<String, dynamic> json) => UserApply(
         userId: json["UserId"],
         applyFor: json["ApplyFor"],
@@ -37,7 +36,6 @@ class UserApply {
         email: json["Email"],
         dependents: json["NumberOfDependents"],
         housingNeed: json["HousingNeed"],
-       
       );
 }
 
@@ -65,7 +63,25 @@ class Maintenance {
         problemofphoto: json["ProblemPhoto"],
         contact: json["ContactInfo"],
         // social: json["City"],
-       
-       
+      );
+}
+
+class UserMesseageList {
+  int userId;
+  int toId;
+  int senderId;
+  String message;
+  bool isActive;
+
+  UserMesseageList(
+      {this.userId, this.toId, this.senderId, this.message, this.isActive});
+
+  factory UserMesseageList.fromJson(Map<String, dynamic> json) =>
+      UserMesseageList(
+        userId: json["userId"],
+        toId: json["toId"],
+        senderId: json["senderId"],
+        message: json["message"],
+        isActive: json["is_active"],
       );
 }

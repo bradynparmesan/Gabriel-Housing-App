@@ -40,6 +40,7 @@ class ApplyScreenState extends State<ApplyScreen> {
   String phoneNumber;
   String dependents;
   bool _autoValidate = false;
+  int currentIndex = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +48,7 @@ class ApplyScreenState extends State<ApplyScreen> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         iconTheme: IconThemeData(
-          color: Colors.black,
+          color: Colors.white,
           //change your color here
         ),
         title: Row(
@@ -578,7 +579,7 @@ class ApplyScreenState extends State<ApplyScreen> {
                                 onChanged: radioChanges,
                               )),
                           Text(
-                            "Not indigenonus",
+                            "Not indigenous",
                             style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 13,
@@ -724,6 +725,7 @@ class ApplyScreenState extends State<ApplyScreen> {
   }
 
   Future<bool> _onBackPressed() {
-    return Future.value();
+    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => HomePage()));
+    return Future.value(true);
   }
 }

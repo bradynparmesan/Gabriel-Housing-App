@@ -63,7 +63,7 @@ class AccountService {
       'Number Of Dependents': userApply.dependents,
       'Indigenonus': userApply.indigenonus,
     };
-       print("API_Key: ${globals.apiKey}");
+    print("API_Key: ${globals.apiKey}");
 
     //encode Map to JSON
     var body = json.encode(data);
@@ -80,6 +80,7 @@ class AccountService {
     print("${response.statusCode}");
     print("${response.body}");
   }
+  
 
   Future<ResponceModel> userMaintenance(Maintenance maintenance) async {
     print("call maintenance Api:$maintenance");
@@ -106,35 +107,9 @@ class AccountService {
 
     return postFromJson(response.body);
   }
+  
 
-  //  Future<ResponceModel> userMessage(UserMessage usermessage) async {
-  //   // print("call readySetting Api:$UserApplyData ");
-  //   var url = Uri.parse(globals.SERVICE_URL + "Account/UserMessage");
-  //   var data = {
-  //     // 'SendId':"",
-  //     // "ToId":"",
-  //     // "Message":
-     
-  //   };
-  //      print("API_Key: ${globals.apiKey}");
-
-  //   //encode Map to JSON
-  //   var body = json.encode(data);
-  //   print("$body");
-  //   print("$url");
-  //   //  print("UserApplyData.userId=========${UserApplyData.userId}");
-
-  //   var response = await http.post(url,
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //         "API_Key": globals.apiKey,
-  //       },
-  //       body: body);
-  //   print("${response.statusCode}");
-  //   print("${response.body}");
-  // }
-
-}
+ }
 
 class UserRegisterModel {
   final int userId;

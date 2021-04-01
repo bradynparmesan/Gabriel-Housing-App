@@ -29,6 +29,19 @@ abstract class Styles {
   //Lending & login & accout create color
    static const Color buttoncolor = Color(0xFF0918ea);
   static const Color lendingtxtcolor = Color(0xFF0918ea);
+   static String capitalize(String str) {
+    //return str[0].toUpperCase() + str.substring(1);
+  return str.trim().substring(0, 1).toUpperCase() +str.substring(1);
+   // print(str);
+    // return  str.trim().toLowerCase().split(' ').map((word) {
+    //  // String splitText=word;
+    //     String leftText =
+    //         (word.length > 1) ? word.substring(1, word.length) : "";
+    //         // print("============"+word);
+    //          // print("=======leftText====="+leftText);
+    //     return word[0].toUpperCase() + leftText;//:str[0].toUpperCase() + str.substring(1);;
+    //   }).join(' ');
+  }
 
  //home color
    static const Color navcolor = Color(0xFFa4a5ba);

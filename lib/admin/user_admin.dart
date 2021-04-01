@@ -1,7 +1,13 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:ghcmobile/alert_message.dart';
+import 'package:ghcmobile/landing_screen.dart';
 import 'package:ghcmobile/main/validator.dart';
+import 'package:ghcmobile/service/admin_service.dart';
 import 'package:ghcmobile/styles.dart';
+import 'package:ghcmobile/models/globals.dart' as globals;
+import 'package:shared_preferences/shared_preferences.dart';
+
 
 class AdminScreen extends StatefulWidget {
   @override
@@ -15,6 +21,7 @@ class AdminScreenState extends State<AdminScreen> {
   bool _autoValidate = false;
   int currentIndex = 0;
   String userText;
+  String userId;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,7 +47,42 @@ class AdminScreenState extends State<AdminScreen> {
             ))
           ],
         ),
+         actions: [
+              Container(
+                  child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 10.0, horizontal: 30.0),
+                      child: RichText(
+                          textAlign: TextAlign.center,
+                          text: new TextSpan(children: [
+                            TextSpan(
+                              text: 'LOGOUT',
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: Styles.buttoncolor,
+                                fontFamily: Styles.fontFamilyMedium,
+                              ),
+                              recognizer: new TapGestureRecognizer()
+                                ..onTap = () {
+                                  removeValues();
+                                  Navigator.push(
+                                      context,
+                                      new MaterialPageRoute(
+                                          builder: (context) =>
+                                              LandingScreen()));
+                                },
+                            )
+                          ])))
+                ],
+                  )
+        
       ),
+         ]
+         
+              ),
       body: WillPopScope(
         onWillPop: _onBackPressed,
         child: Stack(
@@ -79,7 +121,7 @@ class AdminScreenState extends State<AdminScreen> {
                                   borderSide:
                                       BorderSide(color: Colors.grey, width: 1),
                                 ),
-                                hintText: '',
+                                hintText: 'Text',
                                 hintStyle: TextStyle(
                                   color: Colors.grey[400],
                                   fontFamily: Styles.fontFamilyMedium,
@@ -100,7 +142,7 @@ class AdminScreenState extends State<AdminScreen> {
                             height: 45,
                             width: 300,
                             child: RaisedButton(
-                              child: Text('SUBMIT',
+                              child: Text('CREATE MESSAGE',
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontFamily: Styles.fontFamilyBold,
@@ -122,7 +164,52 @@ class AdminScreenState extends State<AdminScreen> {
     );
   }
 
-  void _applyUserData() {}
+  void _applyUserData() {
+    AdminService service = new AdminService();
+    if (_formKeyuser.currentState.validate()) {
+      _formKeyuser.currentState.save();
+      AlertMessage().onLoading(context);
+
+      service.createUserMessage(globals.userId, userText).then((res) {
+        if (res.status) {
+          Navigator.pop(context);
+          userText = "";
+          textController.text = "";
+        } else {
+           Navigator.pop(context);
+          AlertMessage().showMessages(res.message);
+          print('error  : ${res.message}');
+        }
+      }).catchError((onError) {
+         Navigator.pop(context);
+        print(onError);
+        // AlertMessage().showMessages(onError.toString());
+        Navigator.pop(context);
+      });
+    } else {
+      setState(() {
+        _autoValidate = true;
+      });
+    }
+  }
+   removeValues() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    prefs.remove("UserId");
+    prefs.remove("UserName");
+    prefs.remove("Password");
+
+    prefs.remove("Email");
+    prefs.remove("Apikey");
+    prefs.clear();
+    //prefs.commit();
+    prefs.remove("LendingScreen");
+    globals.userId = 0;
+    globals.email = null;
+    globals.apiKey = null;
+    globals.isLoggedIn = false;
+    //read();
+  }
 
   Future<bool> _onBackPressed() {
     return Future.value();

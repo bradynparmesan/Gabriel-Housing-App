@@ -62,7 +62,7 @@ class CreatAccountScreenState extends State<CreatAccountScreen> {
                       height: 40,
                     ),
                     Container(
-                        width: MediaQuery.of(context).size.width / 1.25,
+                        width: MediaQuery.of(context).size.width / 1.18,
 
                         // padding: const EdgeInsets.only(right: 240),
                         child: Text('FIRST NAME', style: Styles.headerText)),
@@ -109,7 +109,7 @@ class CreatAccountScreenState extends State<CreatAccountScreen> {
                       height: 10,
                     ),
                     Container(
-                        width: MediaQuery.of(context).size.width / 1.25,
+                        width: MediaQuery.of(context).size.width / 1.18,
                         child: Text('LAST NAME', style: Styles.headerText)),
                     Padding(
                       //padding: const EdgeInsets.only(left:15.0,right: 15.0,top:0,bottom: 0),
@@ -154,7 +154,7 @@ class CreatAccountScreenState extends State<CreatAccountScreen> {
                       height: 10,
                     ),
                     Container(
-                        width: MediaQuery.of(context).size.width / 1.25,
+                        width: MediaQuery.of(context).size.width / 1.18,
                         child: Text('EMAIL', style: Styles.headerText)),
                     Padding(
                       //padding: const EdgeInsets.only(left:15.0,right: 15.0,top:0,bottom: 0),
@@ -199,7 +199,7 @@ class CreatAccountScreenState extends State<CreatAccountScreen> {
                       height: 10,
                     ),
                     Container(
-                        width: MediaQuery.of(context).size.width / 1.25,
+                        width: MediaQuery.of(context).size.width / 1.17,
                         child: Text('PASSWORD', style: Styles.headerText)),
                     Padding(
                       padding:
@@ -243,7 +243,7 @@ class CreatAccountScreenState extends State<CreatAccountScreen> {
                     ),
                     SizedBox(height: 10),
                     Container(
-                        width: MediaQuery.of(context).size.width / 1.25,
+                        width: MediaQuery.of(context).size.width / 1.17,
                         child: Text('ARE YOU A GHC MEMBER?',
                             style: Styles.headerText)),
                     Container(
@@ -288,7 +288,7 @@ class CreatAccountScreenState extends State<CreatAccountScreen> {
                           ),
                         )),
                     Container(
-                        width: MediaQuery.of(context).size.width / 1.25,
+                        width: MediaQuery.of(context).size.width / 1.17,
                         child: Text('ARE YOU A GHC TENANT?',
                             style: Styles.headerText)),
                     Container(
@@ -343,7 +343,7 @@ class CreatAccountScreenState extends State<CreatAccountScreen> {
                                 textAlign: TextAlign.center,
                                 text: new TextSpan(children: [
                                   TextSpan(
-                                    text: 'LOGIN',
+                                    text: 'I have an already account',
                                     style: TextStyle(
                                         fontSize: 18,
                                         color: Styles.buttoncolor,

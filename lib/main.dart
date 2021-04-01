@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:ghcmobile/admin/user_admin.dart';
 import 'package:ghcmobile/styles.dart';
 
 import 'home/home_screen.dart';
@@ -72,6 +73,7 @@ class _LoginScreenState extends State<LoginScreen> {
   String password = "";
   String ghcMember = "";
   String ghcTenant = "";
+  int role;
   bool lendingpage = false;
 
   startTime() async {
@@ -81,8 +83,13 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void navigationPage() {
     if (lendingpage) {
-      Navigator.push(
-          context, new MaterialPageRoute(builder: (context) => HomePage()));
+      if (role == 2) {
+        Navigator.push(context,
+            new MaterialPageRoute(builder: (context) => AdminScreen()));
+      } else {
+        Navigator.push(
+            context, new MaterialPageRoute(builder: (context) => HomePage()));
+      }
     } else {
       Navigator.push(context,
           new MaterialPageRoute(builder: (context) => LandingScreen()));
@@ -120,9 +127,8 @@ class _LoginScreenState extends State<LoginScreen> {
       print("====ghcMember====" + ghcMember.toString());
       ghcTenant = prefs.getString('GhcTenant');
       print("====ghcTenant====" + ghcTenant.toString());
-
-      // firstName = prefs.getString('G');
-      // print("====firstName====" + firstName.toString());
+      // role = prefs.getString('Role');
+      // print("====role====" + role.toString());
     });
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:ghcmobile/alert_message.dart';
+import 'package:ghcmobile/home/home_screen.dart';
 import 'package:ghcmobile/model/commom_model.dart';
 import 'package:ghcmobile/service/account_service.dart';
 
@@ -13,7 +14,7 @@ class MaintenancePage extends StatefulWidget {
 }
 
 class MaintenanceScreen extends State<MaintenancePage> {
-  int currentIndex = 0;
+  int currentIndex = 4;
   // TextEditingController _textDescController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   String radioValue;
@@ -29,31 +30,31 @@ class MaintenanceScreen extends State<MaintenancePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   backgroundColor: Colors.white,
-      //   iconTheme: IconThemeData(
-      //     color: Colors.black,
-      //     //change your color here
-      //   ),
-      //   title: Row(
-      //     mainAxisAlignment: MainAxisAlignment.start,
-      //     children: [
-      //       SizedBox(width:100),
-      //       Container(
-      //           // padding: const EdgeInsets.all(10),
-      //           // width: 220,
-      //           // height: 150,
-      //           // alignment: Alignment.center,
-      //           child: Image.asset(
-      //             "assets/img/logo.jpeg",
-      //             fit: BoxFit.contain,
-      //             height: 32,
-      //           ))
-      //     ],
-      //   ),
-      // ),
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        iconTheme: IconThemeData(
+          color: Colors.white,
+          //change your color here
+        ),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            SizedBox(width:100),
+            Container(
+                // padding: const EdgeInsets.all(10),
+                // width: 220,
+                // height: 150,
+                // alignment: Alignment.center,
+                child: Image.asset(
+                  "assets/img/logo.jpeg",
+                  fit: BoxFit.contain,
+                  height: 32,
+                ))
+          ],
+        ),
+      ),
       body: WillPopScope(
-        onWillPop: _onBackPressed,
+        onWillPop:_onBackPressed,
         child: Stack(
           children: <Widget>[buildmain(context)],
         ),
@@ -64,7 +65,8 @@ class MaintenanceScreen extends State<MaintenancePage> {
   }
 
   Future<bool> _onBackPressed() {
-    return Future.value(false);
+    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => HomePage()));
+    return Future.value(true);
   }
 
   Widget buildmain(BuildContext context) {

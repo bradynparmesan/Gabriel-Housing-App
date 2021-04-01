@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:ghcmobile/admin/user_admin.dart';
 import 'package:ghcmobile/alert_message.dart';
 import 'package:ghcmobile/home/home_screen.dart';
 import 'package:ghcmobile/main/validator.dart';
@@ -55,7 +56,7 @@ class LoginScreenState extends State<LoginScreen> {
                       height: 80,
                     ),
                     Container(
-                        width: MediaQuery.of(context).size.width / 1.25,
+                        width: MediaQuery.of(context).size.width / 1.18,
                         child: Text(
                           'USERNAME',
                           style: Styles.headerText,
@@ -103,7 +104,7 @@ class LoginScreenState extends State<LoginScreen> {
                       height: 20,
                     ),
                     Container(
-                        width: MediaQuery.of(context).size.width / 1.25,
+                        width: MediaQuery.of(context).size.width / 1.17,
                         child: Text(
                           'PASSWORD',
                           style: Styles.headerText,
@@ -221,17 +222,13 @@ class LoginScreenState extends State<LoginScreen> {
     prefs.setString("FirstName", data["firstName"]);
     prefs.setString("LastName", data["lastName"]);
     prefs.setString("Email", data["email"]);
+    // prefs.setString("Role", data["role"]);
+
     // prefs.setString("GhcMember", data["ghcMember"]);
     // prefs.setString("GhcTenant", data["ghcTenant"]);
     prefs.setString("API_KEY", data["apiKey"]);
     prefs.setBool("lendingpage", true);
     print("globals.apiKey===$apiKey");
-    // if (isRememberMe) {
-    //  // emailLogin = widget.userDetails.email;
-    //   prefs.setBool("introPage", true);
-    // }
-
-    // prefs.setBool("isRememberMe", true);
 
     print('saved $data');
     globals.userId = data["userId"];
@@ -256,6 +253,13 @@ class LoginScreenState extends State<LoginScreen> {
 
           saveData(res.data);
           {
+            Navigator.push(context,
+                new MaterialPageRoute(builder: (context) => HomePage()));
+          }
+          if (res.data["role"] == 2) {
+            Navigator.push(context,
+                new MaterialPageRoute(builder: (context) => AdminScreen()));
+          } else {
             Navigator.push(context,
                 new MaterialPageRoute(builder: (context) => HomePage()));
           }
