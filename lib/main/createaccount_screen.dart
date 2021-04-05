@@ -44,6 +44,7 @@ class CreatAccountScreenState extends State<CreatAccountScreen> {
           Container(
             child: Form(
                 key: _formKeyRegister,
+                autovalidate: _autoValidate,
                 child: Column(
                   children: [
                     Padding(
@@ -83,7 +84,7 @@ class CreatAccountScreenState extends State<CreatAccountScreen> {
                             borderSide:
                                 BorderSide(color: Colors.grey, width: 1),
                           ),
-                          hintText: 'Firstname',
+                          hintText: 'First Name',
                           suffixIcon: IconButton(
                             onPressed: () {},
                             icon: Image.asset(
@@ -128,7 +129,7 @@ class CreatAccountScreenState extends State<CreatAccountScreen> {
                             borderSide:
                                 BorderSide(color: Colors.grey, width: 1),
                           ),
-                          hintText: 'Lastname',
+                          hintText: 'Last Name',
                           suffixIcon: IconButton(
                             onPressed: () {},
                             icon: Image.asset(
@@ -247,7 +248,7 @@ class CreatAccountScreenState extends State<CreatAccountScreen> {
                         child: Text('ARE YOU A GHC MEMBER?',
                             style: Styles.headerText)),
                     Container(
-                        width: MediaQuery.of(context).size.width / 1.20,
+                        width: MediaQuery.of(context).size.width / 1.13,
                         child: new Theme(
                           data: new ThemeData(
                             primarySwatch: Styles.appColor,
@@ -292,7 +293,7 @@ class CreatAccountScreenState extends State<CreatAccountScreen> {
                         child: Text('ARE YOU A GHC TENANT?',
                             style: Styles.headerText)),
                     Container(
-                        width: MediaQuery.of(context).size.width / 1.20,
+                        width: MediaQuery.of(context).size.width / 1.13,
                         child: new Theme(
                           data: new ThemeData(
                             primarySwatch: Styles.appColor,
@@ -332,6 +333,25 @@ class CreatAccountScreenState extends State<CreatAccountScreen> {
                             ],
                           ),
                         )),
+                    Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 10.0, horizontal: 30.0),
+                        child: RichText(
+                            textAlign: TextAlign.center,
+                            text: new TextSpan(children: [
+                              TextSpan(
+                                text: 'Already have an Account?',
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    color: Styles.buttoncolor,
+                                    fontFamily: Styles.fontFamilyMedium,
+                                    decoration: TextDecoration.underline),
+                                //  recognizer: new TapGestureRecognizer()
+                                //    ..onTap = () {
+
+                                //   },
+                              )
+                            ]))),
                     Container(
                         child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -343,7 +363,7 @@ class CreatAccountScreenState extends State<CreatAccountScreen> {
                                 textAlign: TextAlign.center,
                                 text: new TextSpan(children: [
                                   TextSpan(
-                                    text: 'I have an already account',
+                                    text: 'LOGIN',
                                     style: TextStyle(
                                         fontSize: 18,
                                         color: Styles.buttoncolor,

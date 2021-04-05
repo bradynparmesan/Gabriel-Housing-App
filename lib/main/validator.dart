@@ -6,6 +6,13 @@ class Validator {
       return null;
   }
 
+  static String validateAddress(String value) {
+    if (value.length < 3)
+      return 'must be more than 2 characters';
+    else
+      return null;
+  }
+
   static String validPassword(String value) {
     Pattern pattern =
         r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';

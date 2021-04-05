@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:ghcmobile/model/commom_model.dart';
+import 'package:ghcmobile/models/commom_model.dart';
 import 'package:ghcmobile/models/responce.dart';
 
 import 'package:http/http.dart' as http;
@@ -47,6 +47,7 @@ class AccountService {
     return postFromJson(response.body);
   }
 
+  
   Future<ResponceModel> userApplyData(UserApply userApply) async {
     // print("call readySetting Api:$UserApplyData ");
     var url = Uri.parse(globals.SERVICE_URL + "Account/UserApply");
@@ -60,7 +61,7 @@ class AccountService {
       'PhoneNumber': userApply.phoneNumber,
       'HousingNeed': userApply.housingNeed,
       'PostalCode': userApply.postalCode,
-      'Number Of Dependents': userApply.dependents,
+      'NumberOfDependents': userApply.dependents,
       'Indigenonus': userApply.indigenonus,
     };
     print("API_Key: ${globals.apiKey}");
@@ -79,6 +80,7 @@ class AccountService {
         body: body);
     print("${response.statusCode}");
     print("${response.body}");
+     return postFromJson(response.body);
   }
   
 
@@ -89,7 +91,8 @@ class AccountService {
       'UserId': globals.userId,
       'Address': maintenance.address,
       'ProblemOfDescription': maintenance.description,
-      'ProblemPhoto': 1,
+      'ProblemPhoto': maintenance.problemofphoto,
+      'SocialType':maintenance.socialtype,
       'ContactInfo': maintenance.contact,
     };
     print("API_Key: ${globals.apiKey}");

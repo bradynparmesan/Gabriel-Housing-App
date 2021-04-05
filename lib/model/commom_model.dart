@@ -36,21 +36,21 @@ class UserApply {
         housingNeed: json["HousingNeed"],
       );
 }
-class Maintenance {
-  String address;
-  String description;
-  String problemofphoto;
-  String contact;
-  int userId;
+// class Maintenance {
+//   String address;
+//   String description;
+//   String problemofphoto;
+//   String contact;
+//   int userId;
 
-  String social;
+//   String social;
 
-  Maintenance(
-      {this.userId,
-      this.address,
-      this.description,
-      this.problemofphoto,
-      this.contact,
-      });
-}
+//   Maintenance(
+//       {this.userId,
+//       this.address,
+//       this.description,
+//       this.problemofphoto,
+//       this.contact,
+//       });
+// }
 

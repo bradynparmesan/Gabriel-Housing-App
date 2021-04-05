@@ -21,6 +21,7 @@ class MessageScreenState extends State<MessageScreen> {
   bool checkboxValue = false;
   int currentIndex = 0;
   bool isCheked = false;
+  int role;
   String userId;
   int scrollCount = 0;
 
@@ -120,8 +121,7 @@ class MessageScreenState extends State<MessageScreen> {
 
                           // color: Styles.customColor,
                           onPressed: () {
-                            // block(user[index].userId, user[index].touserId,
-                            //     index);
+                            userMessageDelete(user[index].messageId, index);
                           }),
                     ),
                   ),
@@ -163,11 +163,11 @@ class MessageScreenState extends State<MessageScreen> {
   //                     borderRadius: new BorderRadius.circular(5.0),
   //                   ),
   //                   onPressed: () {
-  //                     // int index;
+  // int index;
 
-  //                     // setState(() {
-  //                     //   userMessageDelete(user[index].userId, index);
-  //                     // });
+  // setState(() {
+  //   userMessageDelete(user[index].userId, index);
+  // });
   //                   }),
   //             )
   //           ]));
@@ -187,15 +187,22 @@ class MessageScreenState extends State<MessageScreen> {
     return user;
   }
 
-  userMessageDelete(int userId, int index) {
-    AdminService().messageDelete(userId).then((res) {
+  userMessageDelete(int messageId, int index) {
+    AlertMessage().onLoading(context);
+    AdminService().messageDelete(messageId).then((res) {
       if (res.status) {
+        Navigator.pop(context);
+        AlertMessage().showMessages(res.message);
+
         setState(() {
           user.removeAt(index);
         });
+      } else {
+        AlertMessage().showMessages(res.message);
       }
       print(res);
     }).catchError((onError) {
+      Navigator.pop(context);
       print(onError);
     });
   }

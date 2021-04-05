@@ -5,6 +5,7 @@ import 'package:ghcmobile/home/home_screen.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../styles.dart';
+import 'package:ghcmobile/home/privacy_screen.dart';
 
 class AboutPage extends StatefulWidget {
   @override
@@ -79,7 +80,7 @@ class AboutScreen extends State<AboutPage> with TickerProviderStateMixin {
       Container(
           //padding: const EdgeInsets.all(200),
           // width: 100,
-          height: 230,
+          height: 280,
           decoration: BoxDecoration(
             // color: Colors.lightBlueAccent,
             border: Border.all(
@@ -156,6 +157,7 @@ class AboutScreen extends State<AboutPage> with TickerProviderStateMixin {
             ),
           ),
           Container(
+            padding: const EdgeInsets.only(top: 3),
               child: Linkify(
             onOpen: _onPhone,
             text: "306-775-2905",
@@ -168,7 +170,24 @@ class AboutScreen extends State<AboutPage> with TickerProviderStateMixin {
             //   )
           ))
         ],
-      ))
+      )),
+       SizedBox(height: 10),
+      Container(
+          padding: const EdgeInsets.only(left: 20),
+          child: GestureDetector(
+            child: Text(
+              'little live',
+              style: TextStyle(
+                  fontSize: 18,
+                  color: Styles.buttoncolor,
+                  fontFamily: Styles.fontFamilyMedium,
+                  decoration: TextDecoration.underline),
+            ),
+            onTap: () {
+              Navigator.push(context,
+                  new MaterialPageRoute(builder: (context) => PrivacyPage()));
+            },
+          ))
     ]);
   }
 

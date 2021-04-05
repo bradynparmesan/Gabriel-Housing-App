@@ -67,10 +67,10 @@ class AdminService {
     return postFromJson(response.body);
   }
 
-  Future<ResponceModel> messageDelete(int userId) async {
+  Future<ResponceModel> messageDelete(int messageId) async {
     var url = globals.SERVICE_URL +
-        "Admin/UserMessageListDelete?UserId=" +
-        userId.toString();
+        "Account/DeleteMessage?MessageId=" +
+        messageId.toString();
     // var data = {
     //   'email':email,
     //   'Password':password,

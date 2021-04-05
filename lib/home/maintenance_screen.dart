@@ -1,12 +1,20 @@
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:ghcmobile/alert_message.dart';
 import 'package:ghcmobile/home/home_screen.dart';
+import 'package:ghcmobile/main/validator.dart';
 import 'package:ghcmobile/model/commom_model.dart';
+import 'package:ghcmobile/models/commom_model.dart';
 import 'package:ghcmobile/service/account_service.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../styles.dart';
 import 'package:ghcmobile/models/globals.dart' as globals;
+import 'dart:io' as Io;
+import 'dart:convert';
 
 class MaintenancePage extends StatefulWidget {
   @override
@@ -14,7 +22,7 @@ class MaintenancePage extends StatefulWidget {
 }
 
 class MaintenanceScreen extends State<MaintenancePage> {
-  int currentIndex = 4;
+  int currentIndex = 2;
   // TextEditingController _textDescController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   String radioValue;
@@ -26,6 +34,10 @@ class MaintenanceScreen extends State<MaintenancePage> {
   final contactController = TextEditingController();
   final resetController = TextEditingController();
   String socialReg;
+  //var imageWidget = Image.memory(bytes);
+  String imageB64;
+  File _image;
+  String phoneNumber;
 
   @override
   Widget build(BuildContext context) {
@@ -33,28 +45,28 @@ class MaintenanceScreen extends State<MaintenancePage> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         iconTheme: IconThemeData(
-          color: Colors.white,
+          color: Colors.black,
           //change your color here
         ),
         title: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            SizedBox(width:100),
+            SizedBox(width: 100),
             Container(
                 // padding: const EdgeInsets.all(10),
                 // width: 220,
                 // height: 150,
                 // alignment: Alignment.center,
                 child: Image.asset(
-                  "assets/img/logo.jpeg",
-                  fit: BoxFit.contain,
-                  height: 32,
-                ))
+              "assets/img/logo.jpeg",
+              fit: BoxFit.contain,
+              height: 32,
+            ))
           ],
         ),
       ),
       body: WillPopScope(
-        onWillPop:_onBackPressed,
+        onWillPop: _onBackPressed,
         child: Stack(
           children: <Widget>[buildmain(context)],
         ),
@@ -65,8 +77,8 @@ class MaintenanceScreen extends State<MaintenancePage> {
   }
 
   Future<bool> _onBackPressed() {
-    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => HomePage()));
-    return Future.value(true);
+    SystemNavigator.pop(); //  exit(0);
+    return Future.value(false);
   }
 
   Widget buildmain(BuildContext context) {
@@ -120,6 +132,7 @@ class MaintenanceScreen extends State<MaintenancePage> {
                                 fontFamily: Styles.fontFamilyMedium,
                               ),
                             ),
+                            validator: Validator.validateName,
                             // validator: Validator.validateName,
                             // onSaved: (String val) {
                             //   name = val;
@@ -141,27 +154,163 @@ class MaintenanceScreen extends State<MaintenancePage> {
                           //padding: const EdgeInsets.only(left:15.0,right: 15.0,top:0,bottom: 0),
                           padding:
                               EdgeInsets.symmetric(horizontal: 26, vertical: 5),
-                          child: TextField(
-                              controller: textDescController,
-                              textInputAction: TextInputAction.go,
-                              keyboardType: TextInputType.multiline,
-                              maxLines: 8,
-                              decoration: InputDecoration(
-                                hintText: '',
-                                filled: true,
-                                // fillColor: Color(0xFFDBEDFF),
-                                enabledBorder: OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10.0)),
-                                  borderSide: BorderSide(color: Colors.grey),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10.0)),
-                                  borderSide: BorderSide(color: Colors.grey),
-                                ),
-                              )),
+                          child: TextFormField(
+                            controller: textDescController,
+                            textInputAction: TextInputAction.go,
+                            keyboardType: TextInputType.multiline,
+                            maxLines: 8,
+                            decoration: InputDecoration(
+                              hintText: '',
+                              filled: true,
+                              // fillColor: Color(0xFFDBEDFF),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10.0)),
+                                borderSide: BorderSide(color: Colors.grey),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10.0)),
+                                borderSide: BorderSide(color: Colors.grey),
+                              ),
+                            ),
+                            validator: Validator.validateName,
+                          ),
                         ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Container(
+                          padding: const EdgeInsets.only(right: 50),
+                          child: Text('Please provide a photo of the problem:',
+                              style: TextStyle(
+                                  color: Styles.buttoncolor,
+                                  fontFamily: Styles.fontFamilyBold,
+                                  fontSize: 15)),
+                        ),
+                        Container(
+                            padding: const EdgeInsets.only(left: 20),
+                            child: Row(
+                              //mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                SizedBox(width: 20),
+                                Container(
+                                  height: 80.0,
+                                  child: Center(
+                                      child: _image == null
+                                          ? Text('No image selected.')
+                                          : Container(
+                                              child: Row(
+                                                children: [
+                                                  Image.file(_image),
+                                                  SizedBox(width: 20),
+                                                  Container(
+                                                    child: RaisedButton(
+                                                      child: Text('Remove',
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.white,
+                                                              fontFamily: Styles
+                                                                  .fontFamilyBold,
+                                                              fontSize: 22,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold)),
+                                                      color: Styles.buttoncolor,
+                                                      shape:
+                                                          new RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            new BorderRadius
+                                                                .circular(5.0),
+                                                      ),
+                                                      onPressed: () {
+                                                        Navigator.push(
+                                                            context,
+                                                            new MaterialPageRoute(
+                                                                builder:
+                                                                    (context) =>
+                                                                        MaintenancePage()));
+                                                      },
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            )),
+                                ),
+                                SizedBox(width: 10),
+                                Container(
+                                    child: IconButton(
+                                  icon: Icon(
+                                    Icons.attach_file,
+                                    color: Colors.black,
+                                  ),
+                                  iconSize: 35,
+                                  onPressed: () {
+                                    showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return AlertDialog(
+                                              title: Container(
+                                                  padding:
+                                                      const EdgeInsets.all(0.0),
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.start,
+                                                    children: [
+                                                      Container(
+                                                        child: IconButton(
+                                                          icon: Icon(Icons
+                                                              .add_a_photo),
+                                                          color: Colors.black,
+                                                          iconSize: 25,
+                                                          onPressed: null,
+                                                        ),
+                                                      ),
+                                                      FlatButton(
+                                                        child: Text('Gallery',
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .black,
+                                                                fontFamily: Styles
+                                                                    .fontFamilyMedium,
+                                                                fontSize: 20)),
+                                                        onPressed: () {
+                                                          getGallery();
+                                                        },
+                                                      )
+                                                    ],
+                                                  )),
+                                              content: Container(
+                                                  child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                children: [
+                                                  Container(
+                                                    child: IconButton(
+                                                      icon: Icon(Icons.camera),
+                                                      color: Colors.black,
+                                                      iconSize: 25,
+                                                      onPressed: null,
+                                                    ),
+                                                  ),
+                                                  FlatButton(
+                                                    child: Text('Camera',
+                                                        style: TextStyle(
+                                                            color: Colors.black,
+                                                            fontFamily: Styles
+                                                                .fontFamilyMedium,
+                                                            fontSize: 20)),
+                                                    onPressed: () {
+                                                      getCamera();
+                                                    },
+                                                  )
+                                                ],
+                                              )));
+                                        });
+                                  },
+                                )),
+                              ],
+                            )),
                         SizedBox(
                           height: 10,
                         ),
@@ -242,11 +391,10 @@ class MaintenanceScreen extends State<MaintenancePage> {
                                 fontFamily: Styles.fontFamilyMedium,
                               ),
                             ),
-                            // validator: Validator.validateName,
-                            // onSaved: (String val) {
-                            //   name = val;
-                            //   // emailReg = val.trim();
-                            // },
+                            validator: Validator.validateMobile,
+                            onSaved: (String val) {
+                              phoneNumber = val;
+                            },
                           ),
                         ),
                       ],
@@ -293,14 +441,16 @@ class MaintenanceScreen extends State<MaintenancePage> {
       maintenance.userId = globals.userId;
       maintenance.address = addressController.text;
       maintenance.description = textDescController.text;
-      maintenance.social = socialReg;
+      maintenance.socialtype = socialReg;
       maintenance.contact = contactController.text;
+      maintenance.problemofphoto = imageB64;
       print("userId=====${maintenance.userId}");
       print("address=====${maintenance.address} ");
       print("description=====${maintenance.description}");
       print("contact=====${maintenance.contact}");
 
       print("socialReg=====$socialReg");
+      print("imageB64=====$maintenance.problemofphoto");
       AccountService()
           .userMaintenance(maintenance)
           .then((res) => {
@@ -308,6 +458,8 @@ class MaintenanceScreen extends State<MaintenancePage> {
                   {
                     Navigator.of(context).pop(),
                     AlertMessage().showMessages(res.message),
+                    Navigator.push(context,
+                        new MaterialPageRoute(builder: (context) => HomePage()))
                   }
                 else
                   {}
@@ -341,4 +493,41 @@ class MaintenanceScreen extends State<MaintenancePage> {
       // debugPrint(genderReg); //Debug the choice in console
     });
   }
+
+  Future getGallery() async {
+    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+    setState(() {
+      _image = image;
+      List<int> imageBytes = _image.readAsBytesSync();
+      imageB64 = base64Encode(imageBytes);
+      print("imageB64=====$imageB64");
+    });
+    Navigator.pop(context);
+  }
+
+  Future getCamera() async {
+    var image = await ImagePicker.pickImage(source: ImageSource.camera);
+    setState(() {
+      _image = image;
+      List<int> imageBytes = _image.readAsBytesSync();
+      imageB64 = base64Encode(imageBytes);
+      print("imageB64=====$imageB64");
+    });
+    Navigator.pop(context);
+  }
+  //  Future _getFromCamera() async {
+  //   PickedFile pickedFile = await ImagePicker().getImage(
+  //     source: ImageSource.camera,
+  //     maxWidth: 1800,
+  //     maxHeight: 1800,
+  //   );
+  //   if (pickedFile != null) {
+  //     setState(() {
+  //        _image = File(pickedFile.path);
+  //        List<int> imageBytes = _image.readAsBytesSync();
+  //     imageB64 = base64Encode(imageBytes);
+  //     print("imageB64=====$imageB64");
+  //     });
+  //   }
+  // }
 }

@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:ghcmobile/alert_message.dart';
 import 'package:ghcmobile/home/home_screen.dart';
 import 'package:ghcmobile/main/validator.dart';
-import 'package:ghcmobile/model/commom_model.dart';
+import 'package:ghcmobile/models/commom_model.dart';
 import 'package:ghcmobile/service/account_service.dart';
 import 'package:ghcmobile/models/globals.dart' as globals;
 
@@ -119,7 +119,7 @@ class ApplyScreenState extends State<ApplyScreen> {
                     fontFamily: Styles.fontFamilyMedium,
                   ),
                 ),
-                validator: Validator.validateName,
+                validator: Validator.validateAddress,
                 onSaved: (String val) {
                   legalName = val;
                   // emailReg = val.trim();
@@ -160,7 +160,7 @@ class ApplyScreenState extends State<ApplyScreen> {
                     fontFamily: Styles.fontFamilyMedium,
                   ),
                 ),
-                validator: Validator.validateName,
+                validator: Validator.validateAddress,
                 onSaved: (String val) {
                   address = val;
                   // emailReg = val.trim();
@@ -201,7 +201,7 @@ class ApplyScreenState extends State<ApplyScreen> {
                     fontFamily: Styles.fontFamilyMedium,
                   ),
                 ),
-                validator: Validator.validateName,
+                validator: Validator.validateAddress,
                 onSaved: (String val) {
                   city = val;
                   // emailReg = val.trim();
@@ -365,7 +365,7 @@ class ApplyScreenState extends State<ApplyScreen> {
                     fontFamily: Styles.fontFamilyMedium,
                   ),
                 ),
-                validator: Validator.validateName,
+                validator: Validator.validateAddress,
                 onSaved: (String val) {
                   dependents = val;
                   // emailReg = val.trim();
@@ -620,9 +620,7 @@ class ApplyScreenState extends State<ApplyScreen> {
             ]));
   }
 
-  _applyUserData() {
-    AccountService service = new AccountService();
-
+  void _applyUserData() {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
       AlertMessage().onLoading(context);
@@ -639,20 +637,23 @@ class ApplyScreenState extends State<ApplyScreen> {
       userApply.dependents = dependentsController.text;
       userApply.housingNeed = housingNeed;
       userApply.applyFor = applyFor;
-      service.userApplyData(userApply).then((responce) {
-        if (responce.status) {
-          Navigator.of(context).pop();
-          AlertMessage().showMessages(responce.message);
-          Navigator.push(
-              context, new MaterialPageRoute(builder: (context) => HomePage()));
-        } else {
-          Navigator.pop(context);
-          print('error  : ${responce.message}');
-        }
-      }).catchError((error) {
+      AccountService()
+          .userApplyData(userApply)
+          .then((res) => {
+                if (res.status)
+                  {
+                    Navigator.of(context).pop(),
+                    AlertMessage().showMessages(res.message),
+                    Navigator.push(context,
+                        new MaterialPageRoute(builder: (context) => HomePage()))
+                  }
+                else
+                  {}
+              })
+          .catchError((onError) {
+        print(onError);
+        // AlertMessage().showMessages(onError.toString());
         Navigator.pop(context);
-        print('error reg : $error');
-        // print('error  : ${responce.message}');
       });
     } else {
       setState(() {
@@ -660,6 +661,51 @@ class ApplyScreenState extends State<ApplyScreen> {
       });
     }
   }
+
+  // _applyUserData() async {
+  //   AccountService service = new AccountService();
+
+  //   if (_formKey.currentState.validate()) {
+  //     _formKey.currentState.save();
+  //     AlertMessage().onLoading(context);
+  //     // print("registerModel:$registerModel")
+  //     UserApply userApply = new UserApply();
+  //     userApply.userId = globals.userId;
+  //     userApply.email = emailController.text;
+  //     userApply.fullLegalName = legalNameController.text;
+  //     userApply.indigenonus = indigeonus;
+  //     userApply.address = addressController.text;
+  //     userApply.city = cityController.text;
+  //     userApply.postalCode = postalController.text;
+  //     userApply.phoneNumber = phoneNumberController.text;
+  //     userApply.dependents = dependentsController.text;
+  //     userApply.housingNeed = housingNeed;
+  //     userApply.applyFor = applyFor;
+  //     await service.userApplyData(userApply).then((res) {
+  //       if (res.status) {
+  //         Navigator.pop(context);
+  //         AlertMessage().showMessages(res.message);
+
+  //         Navigator.push(
+  //             context, new MaterialPageRoute(builder: (context) => HomePage()));
+  //        }
+  //       else {
+  //       //   Navigator.of(context).pop();
+  //          AlertMessage().showMessages(res.message);
+  //        }
+  //     }).catchError((onError) {
+  //       Navigator.pop(context);
+  //       print(onError);
+  //       // AlertMessage().showMessages(onError.toString());
+  //      // Navigator.pop(context);
+  //     });
+
+  //   } else {
+  //     setState(() {
+  //       _autoValidate = true;
+  //     });
+  //   }
+  // }
 
   void radioMemberChanges(String value) {
     setState(() {
@@ -725,7 +771,8 @@ class ApplyScreenState extends State<ApplyScreen> {
   }
 
   Future<bool> _onBackPressed() {
-    Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => HomePage()));
+    Navigator.push(context,
+        MaterialPageRoute(builder: (BuildContext context) => HomePage()));
     return Future.value(true);
   }
 }

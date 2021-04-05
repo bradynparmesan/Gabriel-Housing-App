@@ -41,6 +41,7 @@ dev_dependencies:
   http:
   fluttertoast:
   shared_preferences:
+  image_picker:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

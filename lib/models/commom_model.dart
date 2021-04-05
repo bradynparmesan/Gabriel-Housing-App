@@ -46,7 +46,7 @@ class Maintenance {
   String problemofphoto;
   String contact;
 
-  String social;
+  String socialtype;
 
   Maintenance({
     this.userId,
@@ -54,27 +54,34 @@ class Maintenance {
     this.description,
     this.problemofphoto,
     this.contact,
-    this.social,
+    this.socialtype,
   });
   factory Maintenance.fromJson(Map<String, dynamic> json) => Maintenance(
-        userId: json["UserId"],
-        address: json["Address"],
-        description: json["ProblemOfDescription"],
-        problemofphoto: json["ProblemPhoto"],
-        contact: json["ContactInfo"],
-        // social: json["City"],
+      userId: json["UserId"],
+      address: json["Address"],
+      description: json["ProblemOfDescription"],
+      problemofphoto: json["ProblemPhoto"],
+      contact: json["ContactInfo"],
+      socialtype: json["SocialType"]
+      // social: json["City"],
       );
 }
 
 class UserMesseageList {
   int userId;
+  int messageId;
   int toId;
   int senderId;
   String message;
   bool isActive;
 
   UserMesseageList(
-      {this.userId, this.toId, this.senderId, this.message, this.isActive});
+      {this.userId,
+      this.toId,
+      this.senderId,
+      this.message,
+      this.messageId,
+      this.isActive});
 
   factory UserMesseageList.fromJson(Map<String, dynamic> json) =>
       UserMesseageList(
@@ -82,6 +89,7 @@ class UserMesseageList {
         toId: json["toId"],
         senderId: json["senderId"],
         message: json["message"],
+        messageId: json["messageId"],
         isActive: json["is_active"],
       );
 }

@@ -38,6 +38,7 @@ class LoginScreenState extends State<LoginScreen> {
           Container(
             child: Form(
                 key: _formKeyLogin,
+                autovalidate: _autoValidate,
                 child: Column(
                   children: [
                     Padding(
