@@ -9,7 +9,7 @@
 
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="ghcmobile"
+        android:label="Gabriel Housing"
         android:usesCleartextTraffic="true"
         android:icon="@mipmap/ic_launcher">
         <activity

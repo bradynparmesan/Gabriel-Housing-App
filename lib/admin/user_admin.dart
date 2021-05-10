@@ -25,6 +25,7 @@ class AdminScreenState extends State<AdminScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+          automaticallyImplyLeading: false,
           backgroundColor: Colors.white,
           iconTheme: IconThemeData(
             color: Colors.black,
@@ -105,7 +106,7 @@ class AdminScreenState extends State<AdminScreen> {
                                 horizontal: 26, vertical: 5),
                             child: TextFormField(
                               controller: textController,
-                              textInputAction: TextInputAction.go,
+                              textInputAction: TextInputAction.newline,
                               keyboardType: TextInputType.multiline,
                               maxLines: 4,
                               decoration: InputDecoration(

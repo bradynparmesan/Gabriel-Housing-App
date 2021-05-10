@@ -24,7 +24,9 @@ class ApplyScreenState extends State<ApplyScreen> {
   final postalController = TextEditingController();
   final phoneNumberController = TextEditingController();
   final dependentsController = TextEditingController();
+  final List<String> _countryList = ['CA +1', 'US'].toList();
 
+  String countryReg;
   String _memberValue;
   String radioValue;
   String houseValue;
@@ -46,21 +48,29 @@ class ApplyScreenState extends State<ApplyScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () => Navigator.push(
+              context, new MaterialPageRoute(builder: (context) => HomePage())),
+        ),
         backgroundColor: Colors.white,
         iconTheme: IconThemeData(
-          color: Colors.white,
+          color: Colors.black,
           //change your color here
         ),
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
+        title: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(width: 100),
+            //SizedBox(width:55),
             Container(
+                width: MediaQuery.of(context).size.width / 1.7,
+                alignment: Alignment.center,
                 child: Image.asset(
-              "assets/img/logo.jpeg",
-              fit: BoxFit.contain,
-              height: 32,
-            ))
+                  "assets/img/logo.jpeg",
+                  fit: BoxFit.contain,
+                  height: 32,
+                ))
           ],
         ),
       ),
@@ -111,7 +121,7 @@ class ApplyScreenState extends State<ApplyScreen> {
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                    borderSide: BorderSide(color: Colors.grey, width: 1),
+                    borderSide: BorderSide(color: Styles.buttoncolor, width: 1),
                   ),
                   hintText: '',
                   hintStyle: TextStyle(
@@ -119,7 +129,7 @@ class ApplyScreenState extends State<ApplyScreen> {
                     fontFamily: Styles.fontFamilyMedium,
                   ),
                 ),
-                validator: Validator.validateAddress,
+                validator: Validator.validateName,
                 onSaved: (String val) {
                   legalName = val;
                   // emailReg = val.trim();
@@ -147,7 +157,7 @@ class ApplyScreenState extends State<ApplyScreen> {
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                    borderSide: BorderSide(color: Colors.grey, width: 1),
+                    borderSide: BorderSide(color: Styles.buttoncolor, width: 1),
                   ),
                   hintText: '',
                   // suffixIcon: IconButton(
@@ -163,6 +173,8 @@ class ApplyScreenState extends State<ApplyScreen> {
                 validator: Validator.validateAddress,
                 onSaved: (String val) {
                   address = val;
+                  FocusScope.of(context).requestFocus(FocusNode());
+
                   // emailReg = val.trim();
                 },
               ),
@@ -188,7 +200,7 @@ class ApplyScreenState extends State<ApplyScreen> {
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                    borderSide: BorderSide(color: Colors.grey, width: 1),
+                    borderSide: BorderSide(color: Styles.buttoncolor, width: 1),
                   ),
                   hintText: '',
                   // suffixIcon: IconButton(
@@ -201,9 +213,11 @@ class ApplyScreenState extends State<ApplyScreen> {
                     fontFamily: Styles.fontFamilyMedium,
                   ),
                 ),
-                validator: Validator.validateAddress,
+                validator: Validator.validateCity,
                 onSaved: (String val) {
                   city = val;
+                  FocusScope.of(context).requestFocus(FocusNode());
+
                   // emailReg = val.trim();
                 },
               ),
@@ -229,7 +243,7 @@ class ApplyScreenState extends State<ApplyScreen> {
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                    borderSide: BorderSide(color: Colors.grey, width: 1),
+                    borderSide: BorderSide(color: Styles.buttoncolor, width: 1),
                   ),
                   hintText: '',
                   // suffixIcon: IconButton(
@@ -242,9 +256,11 @@ class ApplyScreenState extends State<ApplyScreen> {
                     fontFamily: Styles.fontFamilyMedium,
                   ),
                 ),
-                // validator: Validator.validateName,
+                validator: Validator.postalCode,
                 onSaved: (String val) {
                   postalCode = val;
+                  FocusScope.of(context).requestFocus(FocusNode());
+
                   // emailReg = val.trim();
                 },
               ),
@@ -252,6 +268,94 @@ class ApplyScreenState extends State<ApplyScreen> {
             SizedBox(
               height: 10,
             ),
+            // Container(
+            //     width: MediaQuery.of(context).size.width / 1.20,
+            //     child: Text('Phone Number:',
+            //         style: TextStyle(
+            //             color: Styles.buttoncolor,
+            //             fontFamily: Styles.fontFamilyBold,
+            //             fontSize: 15))),
+            // Container(
+            //     padding: EdgeInsets.only(left: 30),
+            //     child: Row(
+            //       children: [
+            //         // Container(
+            //         //   height: 55,
+            //         //   width: 80,
+            //         //   // padding: EdgeInsets.all(10),
+            //         //   child: DropdownButtonFormField<String>(
+            //         //     // iconEnabledColor: Colors.black,
+            //         //     value: countryReg,
+            //         //     validator: (value) =>
+            //         //         value == null ? 'Please select your country' : null,
+            //         //     items: _countryList.map((item) {
+            //         //       return DropdownMenuItem<String>(
+            //         //         child: new Text(item,
+            //         //             style: TextStyle(
+            //         //                 color: Colors.black,
+            //         //                 fontFamily: Styles.fontFamilyMedium)),
+            //         //         value: item,
+            //         //       );
+            //         //     }).toList(),
+            //         //     decoration: InputDecoration(
+            //         //       contentPadding: EdgeInsets.fromLTRB(5, 1, 5, 10),
+            //         //       border: OutlineInputBorder(
+            //         //         borderRadius: BorderRadius.circular(5.0),
+            //         //       ),
+            //         //       focusedBorder: OutlineInputBorder(
+            //         //         borderRadius:
+            //         //             BorderRadius.all(Radius.circular(10.0)),
+            //         //         borderSide:
+            //         //             BorderSide(color: Styles.buttoncolor, width: 1),
+            //         //       ),
+            //         //       hintText: '',
+
+            //         //       hintStyle: TextStyle(
+            //         //         color: Colors.grey[400],
+            //         //         fontFamily: Styles.fontFamilyMedium,
+            //         //       ),
+            //         //       // errorStyle: TextStyle(height: 0.5)
+            //         //     ),
+            //         //     onChanged: (newValue) {
+            //         //       setState(() {
+            //         //         countryReg = newValue;
+            //         //         // stateReg = null;
+            //         //       });
+            //         //     },
+            //         //   ),
+            //         // ),
+            //         // SizedBox(
+            //         //   width: 10,
+            //         // ),
+            //         Container(
+            //           width: MediaQuery.of(context).size.width / 1.15,
+            //           child: TextFormField(
+            //             controller: phoneNumberController,
+            //             keyboardType: TextInputType.number,
+            //             decoration: InputDecoration(
+            //               border: OutlineInputBorder(
+            //                 borderRadius: BorderRadius.circular(10.0),
+            //               ),
+            //               focusedBorder: OutlineInputBorder(
+            //                 borderRadius:
+            //                     BorderRadius.all(Radius.circular(10.0)),
+            //                 borderSide:
+            //                     BorderSide(color: Styles.buttoncolor, width: 1),
+            //               ),
+            //               hintText: '',
+            //               hintStyle: TextStyle(
+            //                 color: Colors.grey[400],
+            //                 fontFamily: Styles.fontFamilyMedium,
+            //               ),
+            //             ),
+            //             validator: Validator.validateMobile,
+            //             onSaved: (String val) {
+            //               phoneNumber = val;
+            //             },
+            //           ),
+            //         ),
+            //       ],
+            //     )),
             Container(
                 width: MediaQuery.of(context).size.width / 1.20,
                 child: Text('Phone Number:',
@@ -271,14 +375,9 @@ class ApplyScreenState extends State<ApplyScreen> {
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                    borderSide: BorderSide(color: Colors.grey, width: 1),
+                    borderSide: BorderSide(color: Styles.buttoncolor, width: 1),
                   ),
                   hintText: '',
-                  // suffixIcon: IconButton(
-                  //   onPressed: () {},
-                  //   icon: Icon(Icons.phone_android_outlined),
-                  //   color: Colors.grey[400],
-                  // ),
                   hintStyle: TextStyle(
                     color: Colors.grey[400],
                     fontFamily: Styles.fontFamilyMedium,
@@ -287,6 +386,7 @@ class ApplyScreenState extends State<ApplyScreen> {
                 validator: Validator.validateMobile,
                 onSaved: (String val) {
                   phoneNumber = val;
+                  FocusScope.of(context).requestFocus(FocusNode());
                 },
               ),
             ),
@@ -311,7 +411,7 @@ class ApplyScreenState extends State<ApplyScreen> {
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                    borderSide: BorderSide(color: Colors.grey, width: 1),
+                    borderSide: BorderSide(color: Styles.buttoncolor, width: 1),
                   ),
                   hintText: '',
                   // suffixIcon: IconButton(
@@ -327,6 +427,7 @@ class ApplyScreenState extends State<ApplyScreen> {
                 validator: Validator.validateEmail,
                 onSaved: (String val) {
                   email = val;
+                  FocusScope.of(context).requestFocus(FocusNode());
                 },
               ),
             ),
@@ -345,14 +446,17 @@ class ApplyScreenState extends State<ApplyScreen> {
               padding: EdgeInsets.symmetric(horizontal: 26, vertical: 5),
               child: TextFormField(
                 controller: dependentsController,
+                textInputAction: TextInputAction.next,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                    borderSide: BorderSide(color: Colors.grey, width: 1),
+                    borderSide: BorderSide(color: Styles.buttoncolor, width: 1),
                   ),
+
+                  errorMaxLines: 2,
 
                   hintText: '',
                   // suffixIcon: IconButton(
@@ -365,10 +469,11 @@ class ApplyScreenState extends State<ApplyScreen> {
                     fontFamily: Styles.fontFamilyMedium,
                   ),
                 ),
-                validator: Validator.validateAddress,
+                validator: Validator.validateDependents,
                 onSaved: (String val) {
                   dependents = val;
                   // emailReg = val.trim();
+                  FocusScope.of(context).requestFocus(FocusNode());
                 },
               ),
             ),
@@ -771,8 +876,10 @@ class ApplyScreenState extends State<ApplyScreen> {
   }
 
   Future<bool> _onBackPressed() {
+    print("object===");
     Navigator.push(context,
         MaterialPageRoute(builder: (BuildContext context) => HomePage()));
+
     return Future.value(true);
   }
 }

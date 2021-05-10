@@ -56,12 +56,14 @@ class LandingScreenState extends State<LandingScreen> {
     return ListView(
       children: [
         Container(
+         alignment: Alignment.bottomCenter,
           child: Column(
             children: [
               SizedBox(
-                height:530
+                height:480
               ),
               Container(
+                 
                   child: RaisedButton(
                onPressed: () async {
                     Navigator.push(

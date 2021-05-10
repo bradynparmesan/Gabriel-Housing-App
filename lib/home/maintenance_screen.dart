@@ -10,6 +10,7 @@ import 'package:ghcmobile/model/commom_model.dart';
 import 'package:ghcmobile/models/commom_model.dart';
 import 'package:ghcmobile/service/account_service.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../styles.dart';
 import 'package:ghcmobile/models/globals.dart' as globals;
@@ -23,45 +24,57 @@ class MaintenancePage extends StatefulWidget {
 
 class MaintenanceScreen extends State<MaintenancePage> {
   int currentIndex = 2;
+  String userId;
   // TextEditingController _textDescController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   String radioValue;
-  String houseValue;
+  String houseValue = "one";
   String choice;
   bool _autoValidate = false;
   final addressController = TextEditingController();
   final textDescController = TextEditingController();
   final contactController = TextEditingController();
   final resetController = TextEditingController();
-  String socialReg;
+  String socialReg="email";
   //var imageWidget = Image.memory(bytes);
   String imageB64;
   File _image;
   String phoneNumber;
 
+  // @override
+  // void initState() {
+  //   setState(() {
+  //     houseValue = "one";
+  //   });
+  //   super.initState();
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () => Navigator.push(
+              context, new MaterialPageRoute(builder: (context) => HomePage())),
+        ),
         backgroundColor: Colors.white,
         iconTheme: IconThemeData(
           color: Colors.black,
           //change your color here
         ),
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
+        title: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(width: 100),
+            //SizedBox(width:55),
             Container(
-                // padding: const EdgeInsets.all(10),
-                // width: 220,
-                // height: 150,
-                // alignment: Alignment.center,
+                width: MediaQuery.of(context).size.width / 1.7,
+                alignment: Alignment.center,
                 child: Image.asset(
-              "assets/img/logo.jpeg",
-              fit: BoxFit.contain,
-              height: 32,
-            ))
+                  "assets/img/logo.jpeg",
+                  fit: BoxFit.contain,
+                  height: 32,
+                ))
           ],
         ),
       ),
@@ -77,8 +90,11 @@ class MaintenanceScreen extends State<MaintenancePage> {
   }
 
   Future<bool> _onBackPressed() {
-    SystemNavigator.pop(); //  exit(0);
-    return Future.value(false);
+    print("object===");
+    Navigator.push(context,
+        MaterialPageRoute(builder: (BuildContext context) => HomePage()));
+
+    return Future.value(true);
   }
 
   Widget buildmain(BuildContext context) {
@@ -105,7 +121,8 @@ class MaintenanceScreen extends State<MaintenancePage> {
                     child: Column(
                       children: [
                         Container(
-                            padding: const EdgeInsets.only(right: 160),
+                            //padding: const EdgeInsets.only(right: 160),
+                            width: MediaQuery.of(context).size.width / 1.22,
                             child: Text('What is your address?	',
                                 style: TextStyle(
                                     color: Styles.buttoncolor,
@@ -121,6 +138,12 @@ class MaintenanceScreen extends State<MaintenancePage> {
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10.0)),
+                                borderSide: BorderSide(
+                                    color: Styles.buttoncolor, width: 1),
+                              ),
                               hintText: '',
                               suffixIcon: IconButton(
                                 onPressed: () {},
@@ -132,7 +155,7 @@ class MaintenanceScreen extends State<MaintenancePage> {
                                 fontFamily: Styles.fontFamilyMedium,
                               ),
                             ),
-                            validator: Validator.validateName,
+                            validator: Validator.validateAddress,
                             // validator: Validator.validateName,
                             // onSaved: (String val) {
                             //   name = val;
@@ -144,7 +167,8 @@ class MaintenanceScreen extends State<MaintenancePage> {
                           height: 10,
                         ),
                         Container(
-                            padding: const EdgeInsets.only(right: 120),
+                            // padding: const EdgeInsets.only(right: 120),
+                            width: MediaQuery.of(context).size.width / 1.22,
                             child: Text('Please describe the problem:	',
                                 style: TextStyle(
                                     color: Styles.buttoncolor,
@@ -156,7 +180,7 @@ class MaintenanceScreen extends State<MaintenancePage> {
                               EdgeInsets.symmetric(horizontal: 26, vertical: 5),
                           child: TextFormField(
                             controller: textDescController,
-                            textInputAction: TextInputAction.go,
+                            textInputAction: TextInputAction.newline,
                             keyboardType: TextInputType.multiline,
                             maxLines: 8,
                             decoration: InputDecoration(
@@ -171,17 +195,19 @@ class MaintenanceScreen extends State<MaintenancePage> {
                               focusedBorder: OutlineInputBorder(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10.0)),
-                                borderSide: BorderSide(color: Colors.grey),
+                                borderSide: BorderSide(
+                                    color: Styles.buttoncolor, width: 1),
                               ),
                             ),
-                            validator: Validator.validateName,
+                            validator: Validator.describeProblem,
                           ),
                         ),
                         SizedBox(
                           height: 10,
                         ),
                         Container(
-                          padding: const EdgeInsets.only(right: 50),
+                          width: MediaQuery.of(context).size.width / 1.22,
+                          //padding: const EdgeInsets.only(right: 50),
                           child: Text('Please provide a photo of the problem:',
                               style: TextStyle(
                                   color: Styles.buttoncolor,
@@ -195,49 +221,117 @@ class MaintenanceScreen extends State<MaintenancePage> {
                               children: [
                                 SizedBox(width: 20),
                                 Container(
-                                  height: 80.0,
-                                  child: Center(
-                                      child: _image == null
-                                          ? Text('No image selected.')
-                                          : Container(
-                                              child: Row(
-                                                children: [
-                                                  Image.file(_image),
-                                                  SizedBox(width: 20),
-                                                  Container(
-                                                    child: RaisedButton(
-                                                      child: Text('Remove',
-                                                          style: TextStyle(
-                                                              color:
-                                                                  Colors.white,
-                                                              fontFamily: Styles
-                                                                  .fontFamilyBold,
-                                                              fontSize: 22,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold)),
-                                                      color: Styles.buttoncolor,
-                                                      shape:
-                                                          new RoundedRectangleBorder(
-                                                        borderRadius:
-                                                            new BorderRadius
-                                                                .circular(5.0),
+                                    height: 100,
+                                    child: Row(
+                                      children: [
+                                        Container(
+                                          height: 250,
+                                          child: Center(
+                                              child: _image == null
+                                                  ? Text('No image selected.')
+                                                  : Container(
+                                                      // width: 100.00,
+                                                      // height: 100.00,
+                                                      // decoration:
+                                                      //     new BoxDecoration(
+                                                      //   image:
+                                                      //       new DecorationImage(
+                                                      //     image: ExactAssetImage(
+                                                      //         'Image.file(_image)'),
+                                                      //     fit: BoxFit.fitHeight,
+                                                      //   ),
+                                                      // )
+                                                      child: Row(children: [
+                                                      Container(
+                                                        height: 100.0,
+                                                        width: 100.0,
+                                                        decoration:
+                                                            new BoxDecoration(
+                                                          shape: BoxShape
+                                                              .rectangle,
+
+                                                          // border: Border.all(
+                                                          //     color: const Color(
+                                                          //         0x33A6A6A6)),
+                                                          // image: new Image.asset(_image.)
+                                                        ),
+                                                        child: new Image.file(
+                                                          _image,
+                                                          width: 100.0,
+                                                          height: 100,
+                                                        ),
                                                       ),
-                                                      onPressed: () {
-                                                        Navigator.push(
-                                                            context,
-                                                            new MaterialPageRoute(
-                                                                builder:
-                                                                    (context) =>
-                                                                        MaintenancePage()));
-                                                      },
-                                                    ),
-                                                  )
-                                                ],
-                                              ),
-                                            )),
-                                ),
-                                SizedBox(width: 10),
+                                                      Container(
+                                                        width: 100,
+                                                        height: 30,
+                                                        child: FlatButton(
+                                                          child: Text('Remove',
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontFamily: Styles
+                                                                      .fontFamilyBold,
+                                                                  fontSize: 15,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold)),
+                                                          color: Styles
+                                                              .buttoncolor,
+                                                          shape:
+                                                              new RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                new BorderRadius
+                                                                        .circular(
+                                                                    5.0),
+                                                          ),
+                                                          onPressed: () {
+                                                            setState(() {
+                                                              _image = null;
+                                                            });
+                                                          },
+                                                        ),
+                                                      )
+                                                    ]))),
+                                        )
+                                      ],
+                                    )),
+                                //width: 10,
+                                // child: Row(
+                                //   children: [
+                                //     Image.file(_image),
+                                //     SizedBox(width:2),
+                                //     Container(
+
+                                //       width: 100,
+                                //       height: 30,
+                                //       child: FlatButton(
+                                //         child: Text('Remove',
+                                //             style: TextStyle(
+                                //                 color:
+                                //                     Colors.white,
+                                //                 fontFamily: Styles
+                                //                     .fontFamilyBold,
+                                //                 fontSize: 15,
+                                //                 fontWeight:
+                                //                     FontWeight
+                                //                         .bold)),
+                                //         color: Styles.buttoncolor,
+                                //         shape:
+                                //             new RoundedRectangleBorder(
+                                //           borderRadius:
+                                //               new BorderRadius
+                                //                   .circular(5.0),
+                                //         ),
+                                //         onPressed: () {
+                                //           setState(() {
+                                //             _image = null;
+                                //           });
+                                //         },
+                                //       ),
+                                //     )
+                                //   ],
+                                // ),
+
                                 Container(
                                     child: IconButton(
                                   icon: Icon(
@@ -315,7 +409,8 @@ class MaintenanceScreen extends State<MaintenancePage> {
                           height: 10,
                         ),
                         Container(
-                            padding: const EdgeInsets.only(right: 20),
+                            width: MediaQuery.of(context).size.width / 1.22,
+                            // padding: const EdgeInsets.only(right: 20),
                             child: Text(
                                 'How may we contact you to schedule service?',
                                 style: TextStyle(
@@ -323,7 +418,7 @@ class MaintenanceScreen extends State<MaintenancePage> {
                                     fontFamily: Styles.fontFamilyBold,
                                     fontSize: 15))),
                         Container(
-                            padding: EdgeInsets.only(right: 180),
+                            padding: EdgeInsets.only(right: 150),
                             child: new Theme(
                               data: new ThemeData(
                                 // primarySwatch: Styles.appColor,
@@ -343,7 +438,7 @@ class MaintenanceScreen extends State<MaintenancePage> {
                                     "Email",
                                     style: TextStyle(
                                         color: Colors.black,
-                                        fontSize: 13,
+                                        fontSize: 12,
                                         fontFamily: Styles.fontFamilyMedium),
                                   ),
                                   Transform.scale(
@@ -357,14 +452,15 @@ class MaintenanceScreen extends State<MaintenancePage> {
                                     "Phone",
                                     style: TextStyle(
                                         color: Colors.black,
-                                        fontSize: 13,
+                                        fontSize: 12,
                                         fontFamily: Styles.fontFamilyMedium),
                                   ),
                                 ],
                               ),
                             )),
                         Container(
-                            padding: const EdgeInsets.only(right: 230),
+                            width: MediaQuery.of(context).size.width / 1.22,
+                            // padding: const EdgeInsets.only(right: 230),
                             child: Text('Contact Info:	',
                                 style: TextStyle(
                                     color: Styles.buttoncolor,
@@ -376,14 +472,24 @@ class MaintenanceScreen extends State<MaintenancePage> {
                               EdgeInsets.symmetric(horizontal: 26, vertical: 5),
                           child: TextFormField(
                             controller: contactController,
+                            // autovalidateMode:
+                            //     AutovalidateMode.onUserInteraction,
                             decoration: InputDecoration(
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10.0)),
+                                borderSide: BorderSide(
+                                    color: Styles.buttoncolor, width: 1),
+                              ),
                               hintText: '',
                               suffixIcon: IconButton(
                                 onPressed: () {},
-                                icon: Icon(Icons.phone),
+                                icon: houseValue == "one"
+                                    ? Icon(Icons.mail)
+                                    : Icon(Icons.phone),
                                 color: Colors.grey[400],
                               ),
                               hintStyle: TextStyle(
@@ -391,9 +497,19 @@ class MaintenanceScreen extends State<MaintenancePage> {
                                 fontFamily: Styles.fontFamilyMedium,
                               ),
                             ),
-                            validator: Validator.validateMobile,
-                            onSaved: (String val) {
-                              phoneNumber = val;
+                            validator: houseValue == "one"
+                                ? Validator.validateEmail
+                                : Validator.validateMobile,
+                            // onSaved: (String val) {
+                            //   phoneNumber = val;
+                            // },
+                            autovalidate: _autoValidate,
+                            onChanged: (String val) {
+                              setState(() {
+                                _autoValidate = true;
+                                phoneNumber = val;
+                              });
+                              print("val $val");
                             },
                           ),
                         ),
@@ -452,7 +568,7 @@ class MaintenanceScreen extends State<MaintenancePage> {
       print("socialReg=====$socialReg");
       print("imageB64=====$maintenance.problemofphoto");
       AccountService()
-          .userMaintenance(maintenance)
+          .userMaintenance(_image, maintenance)
           .then((res) => {
                 if (res.status)
                   {
@@ -462,7 +578,7 @@ class MaintenanceScreen extends State<MaintenancePage> {
                         new MaterialPageRoute(builder: (context) => HomePage()))
                   }
                 else
-                  {}
+                  {Navigator.of(context).pop()}
               })
           .catchError((onError) {
         print(onError);
@@ -482,26 +598,32 @@ class MaintenanceScreen extends State<MaintenancePage> {
       switch (value) {
         case 'one':
           socialReg = "email";
+
           break;
         case 'two':
           socialReg = "phone";
+
           break;
 
         default:
           socialReg = null;
       }
-      // debugPrint(genderReg); //Debug the choice in console
+
+      // debugPrint(socialReg); //Debug the choice in console
     });
   }
 
   Future getGallery() async {
     var image = await ImagePicker.pickImage(source: ImageSource.gallery);
-    setState(() {
-      _image = image;
-      List<int> imageBytes = _image.readAsBytesSync();
-      imageB64 = base64Encode(imageBytes);
-      print("imageB64=====$imageB64");
-    });
+    // if (image != null) {
+      setState(() {
+        _image = image;
+
+        // List<int> imageBytes = _image.readAsBytesSync();
+        // imageB64 = base64Encode(imageBytes);
+        print("_image=====$imageB64");
+      });
+   // }
     Navigator.pop(context);
   }
 
@@ -509,9 +631,9 @@ class MaintenanceScreen extends State<MaintenancePage> {
     var image = await ImagePicker.pickImage(source: ImageSource.camera);
     setState(() {
       _image = image;
-      List<int> imageBytes = _image.readAsBytesSync();
-      imageB64 = base64Encode(imageBytes);
-      print("imageB64=====$imageB64");
+      // List<int> imageBytes = _image.readAsBytesSync();
+      // imageB64 = base64Encode(imageBytes);
+      print("_image=====$imageB64");
     });
     Navigator.pop(context);
   }

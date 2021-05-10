@@ -21,6 +21,7 @@ class CreatAccountScreenState extends State<CreatAccountScreen> {
   final emailController = TextEditingController();
 
   final _formKeyRegister = GlobalKey<FormState>();
+
   bool loginObscureText = true;
 
   String choice;
@@ -99,9 +100,11 @@ class CreatAccountScreenState extends State<CreatAccountScreen> {
                             fontFamily: Styles.fontFamilyMedium,
                           ),
                         ),
-                        validator: Validator.validateName,
+                        validator: Validator.validateFirstName,
                         onSaved: (String val) {
                           firstName = val;
+                          FocusScope.of(context).requestFocus(FocusNode());
+
                           // emailReg = val.trim();
                         },
                       ),
@@ -144,9 +147,11 @@ class CreatAccountScreenState extends State<CreatAccountScreen> {
                             fontFamily: Styles.fontFamilyMedium,
                           ),
                         ),
-                        validator: Validator.validateName,
+                        validator: Validator.validateLastName,
                         onSaved: (String val) {
                           lastName = val;
+                          FocusScope.of(context).requestFocus(FocusNode());
+
                           // emailReg = val.trim();
                         },
                       ),
@@ -192,6 +197,8 @@ class CreatAccountScreenState extends State<CreatAccountScreen> {
                         validator: Validator.validateEmail,
                         onSaved: (String val) {
                           email = val;
+                          FocusScope.of(context).requestFocus(FocusNode());
+
                           // emailReg = val.trim();
                         },
                       ),
@@ -238,6 +245,8 @@ class CreatAccountScreenState extends State<CreatAccountScreen> {
                         validator: Validator.validPassword,
                         onSaved: (String val) {
                           password = val;
+                          FocusScope.of(context).requestFocus(FocusNode());
+
                           // emailReg = val.trim();
                         },
                       ),
@@ -248,7 +257,7 @@ class CreatAccountScreenState extends State<CreatAccountScreen> {
                         child: Text('ARE YOU A GHC MEMBER?',
                             style: Styles.headerText)),
                     Container(
-                        width: MediaQuery.of(context).size.width / 1.13,
+                        width: MediaQuery.of(context).size.width / 1.10,
                         child: new Theme(
                           data: new ThemeData(
                             primarySwatch: Styles.appColor,
@@ -293,7 +302,7 @@ class CreatAccountScreenState extends State<CreatAccountScreen> {
                         child: Text('ARE YOU A GHC TENANT?',
                             style: Styles.headerText)),
                     Container(
-                        width: MediaQuery.of(context).size.width / 1.13,
+                        width: MediaQuery.of(context).size.width / 1.10,
                         child: new Theme(
                           data: new ThemeData(
                             primarySwatch: Styles.appColor,
@@ -333,91 +342,109 @@ class CreatAccountScreenState extends State<CreatAccountScreen> {
                             ],
                           ),
                         )),
-                    Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 10.0, horizontal: 30.0),
-                        child: RichText(
-                            textAlign: TextAlign.center,
-                            text: new TextSpan(children: [
-                              TextSpan(
-                                text: 'Already have an Account?',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    color: Styles.buttoncolor,
-                                    fontFamily: Styles.fontFamilyMedium,
-                                    decoration: TextDecoration.underline),
-                                //  recognizer: new TapGestureRecognizer()
-                                //    ..onTap = () {
-
-                                //   },
-                              )
-                            ]))),
                     Container(
+                        width: MediaQuery.of(context).size.width / 1.17,
                         child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 10.0, horizontal: 30.0),
-                            child: RichText(
-                                textAlign: TextAlign.center,
-                                text: new TextSpan(children: [
-                                  TextSpan(
-                                    text: 'LOGIN',
-                                    style: TextStyle(
-                                        fontSize: 18,
-                                        color: Styles.buttoncolor,
-                                        fontFamily: Styles.fontFamilyMedium,
-                                        decoration: TextDecoration.underline),
-                                    recognizer: new TapGestureRecognizer()
-                                      ..onTap = () {
-                                        Navigator.push(
-                                            context,
-                                            new MaterialPageRoute(
-                                                builder: (context) =>
-                                                    LoginScreen()));
-                                      },
-                                  )
-                                ])))
-                      ],
-                    )),
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Container(
+                                padding: const EdgeInsets.only(left: 5),
+                                child: RichText(
+                                    textAlign: TextAlign.center,
+                                    text: new TextSpan(children: [
+                                      TextSpan(
+                                        text: 'Already Registered? ',
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                          color: Styles.buttoncolor,
+                                          fontFamily: Styles.fontFamilyMedium,
+                                        ),
+                                        //  recognizer: new TapGestureRecognizer()
+                                        //    ..onTap = () {
+
+                                        //   },
+                                      ),
+                                      TextSpan(
+                                        text: 'Login here',
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            color: Styles.buttoncolor,
+                                            fontFamily: Styles.fontFamilyMedium,
+                                            decoration:
+                                                TextDecoration.underline),
+                                        recognizer: new TapGestureRecognizer()
+                                          ..onTap = () {
+                                            Navigator.push(
+                                                context,
+                                                new MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        LoginScreen()));
+                                          },
+                                      )
+                                    ]))),
+                            SizedBox(
+                              height: 50,
+                            ),
+                          ],
+                        )),
+                    Container(
+                      padding: const EdgeInsets.only(bottom: 5),
+                      height: 50,
+                      width: 300,
+                      child: RaisedButton(
+                        child: Text(
+                          "REGISTER",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: Styles.fontFamilyBold,
+                            fontSize: 20,
+                          ),
+                        ),
+                        color: Styles.buttoncolor,
+                        shape: new RoundedRectangleBorder(
+                          borderRadius: new BorderRadius.circular(5.0),
+                        ),
+                        onPressed: _validatorAccountReg,
+                      ),
+                    )
                   ],
                 )),
           )
         ],
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: buildBottomBarButton(),
+      // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      // bottomNavigationBar: buildBottomBarButton(),
     );
   }
 
-  Widget buildBottomBarButton() {
-    return BottomAppBar(
-        shape: CircularNotchedRectangle(),
-        child: new Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: <Widget>[
-              Container(
-                padding: const EdgeInsets.only(bottom: 5),
-                height: 45,
-                width: 300,
-                child: RaisedButton(
-                  child: Text('REGISTER',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontFamily: Styles.fontFamilyBold,
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold)),
-                  color: Styles.buttoncolor,
-                  shape: new RoundedRectangleBorder(
-                    borderRadius: new BorderRadius.circular(5.0),
-                  ),
-                  onPressed: _validatorAccountReg,
-                ),
-              )
-            ]));
-  }
+  // Widget buildBottomBarButton() {
+  //   return BottomAppBar(
+  //       shape: CircularNotchedRectangle(),
+  //       child: new Row(
+  //           mainAxisSize: MainAxisSize.max,
+  //           mainAxisAlignment: MainAxisAlignment.spaceAround,
+  //           children: <Widget>[
+  //             Container(
+  //               padding: const EdgeInsets.only(bottom: 5),
+  //               height: 45,
+  //               width: 300,
+  //               child: RaisedButton(
+  //                 child: Text('REGISTER',
+  //                     style: TextStyle(
+  //                         color: Colors.white,
+  //                         fontFamily: Styles.fontFamilyBold,
+  //                         fontSize: 22,
+  //                         fontWeight: FontWeight.bold)),
+  //                 color: Styles.buttoncolor,
+  //                 shape: new RoundedRectangleBorder(
+  //                   borderRadius: new BorderRadius.circular(5.0),
+  //                 ),
+  //                 onPressed: _validatorAccountReg,
+  //               ),
+  //             )
+  //           ]));
+  // }
 
   // void radioButtonChanges(String value) {
   //   setState(() {
@@ -460,15 +487,29 @@ class CreatAccountScreenState extends State<CreatAccountScreen> {
 
     if (_formKeyRegister.currentState.validate()) {
       _formKeyRegister.currentState.save();
-      // AlertMessage().onLoading(context);
+      AlertMessage().onLoading(context);
       // print("registerModel:$registerModel")
       UserRegisterModel registerModel = new UserRegisterModel(
           0, firstName, lastName, email, password, ghcMember, ghcTenant);
+      if (ghcMember == null) {
+        print("ghcMember=====$ghcMember");
+        Navigator.pop(context);
+        AlertMessage().showMessages("Please choose your ghc member");
+        return null;
+      }
+      if (ghcTenant == null) {
+        print("ghcTenant=====$ghcTenant");
+        Navigator.pop(context);
+        AlertMessage().showMessages("Please choose your ghc tenant");
+        return null;
+      }
       service.userRegister(registerModel).then((responce) {
+        Navigator.pop(context);
+
         if (responce.status) {
           Navigator.push(context,
               new MaterialPageRoute(builder: (context) => LoginScreen()));
-          // Navigator.of(context).pop();
+
           AlertMessage().showMessages(responce.message);
           setState(() {
             firstName = "";
@@ -483,10 +524,13 @@ class CreatAccountScreenState extends State<CreatAccountScreen> {
             // this._tabController.index = 0;
           });
         } else {
+          Navigator.pop(context);
+
           AlertMessage().showMessages(responce.message);
           print('error  : ${responce.message}');
         }
       }).catchError((error) {
+        Navigator.pop(context);
         Navigator.pop(context);
         print('error reg : $error');
         // print('error  : ${responce.message}');

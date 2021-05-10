@@ -44,28 +44,32 @@ class MessageScreenState extends State<MessageScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () => Navigator.push(
+              context, new MaterialPageRoute(builder: (context) => HomePage())),
+        ),
         backgroundColor: Colors.white,
         iconTheme: IconThemeData(
-          color: Colors.white,
-          //change your color here
+          color: Colors.black, //change your color here
         ),
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            SizedBox(width: 100),
-            Container(
-                // padding: const EdgeInsets.all(10),
-                // width: 220,
-                // height: 150,
-                // alignment: Alignment.center,
-                child: Image.asset(
-              "assets/img/logo.jpeg",
-              fit: BoxFit.contain,
-              height: 32,
-            ))
-          ],
-        ),
+        title: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                //SizedBox(width:55),
+                Container(
+                   width: MediaQuery.of(context).size.width / 1.7,
+                    alignment: Alignment.center,
+                    child: Image.asset(
+                      "assets/img/logo.jpeg",
+                      
+                      fit: BoxFit.contain,
+                      height: 32,
+                    ))
+              ],
+            ),
       ),
+
       body: WillPopScope(
           onWillPop: _onBackPressed,
           child: FutureBuilder<List<UserMesseageList>>(
@@ -79,6 +83,13 @@ class MessageScreenState extends State<MessageScreen> {
       //floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       // bottomNavigationBar: buildBottomBarButton(),
     );
+  }
+  Future<bool> _onBackPressed() {
+    print("object===");
+    Navigator.push(context,
+        MaterialPageRoute(builder: (BuildContext context) => HomePage()));
+
+    return Future.value(true);
   }
 
   Widget messagePage(List<UserMesseageList> user) {
@@ -107,6 +118,7 @@ class MessageScreenState extends State<MessageScreen> {
                       title: Text(
                         Styles.capitalize(user[index].message),
                         style: Styles.headerText,
+                        textAlign: TextAlign.justify,
                       ),
                       trailing: RaisedButton(
                           child: Text(
@@ -131,7 +143,7 @@ class MessageScreenState extends State<MessageScreen> {
             )
           : Center(
               child: Text(
-              'Member not found',
+              'No Messages Available',
               style: TextStyle(),
             )),
     );
@@ -207,9 +219,9 @@ class MessageScreenState extends State<MessageScreen> {
     });
   }
 
-  Future<bool> _onBackPressed() {
-    Navigator.push(context,
-        MaterialPageRoute(builder: (BuildContext context) => HomePage()));
-    return Future.value(true);
-  }
+  // Future<bool> _onBackPressed() {
+  //   Navigator.push(context,
+  //       MaterialPageRoute(builder: (BuildContext context) => HomePage()));
+  //   return Future.value(true);
+  // }
 }

@@ -120,10 +120,7 @@ class HomeScreen extends State<HomePage> with TickerProviderStateMixin {
             unselectedLabelStyle: TextStyle(fontSize: 6),
             indicatorColor: Colors.orange,
             indicator: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                    //  topLeft: Radius.circular(10),
-                    //  topRight: Radius.circular(5)
-                    ),
+                borderRadius: BorderRadius.circular(10.0),
                 color: Styles.buttoncolor),
             onTap: (int index) {
               _currentIndex = index;
@@ -140,7 +137,15 @@ class HomeScreen extends State<HomePage> with TickerProviderStateMixin {
   }
 
   Future<bool> _onBackPressed() {
-    SystemNavigator.pop();
+    print("======================homepage=====================");
+    if (_currentIndex != 2) {
+      setState(() {
+        _currentIndex = 2;
+         _tabController.index =2;
+      });
+    } else {
+      SystemNavigator.pop();
+    }
     return Future.value(true);
   }
 
@@ -155,8 +160,9 @@ class HomeScreen extends State<HomePage> with TickerProviderStateMixin {
             title: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                 SizedBox(width: 58),
                 Container(
-                    padding: const EdgeInsets.all(10),
+                    // padding: const EdgeInsets.all(25),
                     // width: 220,
                     // height: 150,
                     alignment: Alignment.center,
@@ -170,7 +176,7 @@ class HomeScreen extends State<HomePage> with TickerProviderStateMixin {
             actions: [
               Container(
                   child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
                   Padding(
                       padding: const EdgeInsets.symmetric(
@@ -233,13 +239,14 @@ class HomeScreen extends State<HomePage> with TickerProviderStateMixin {
                                 color: Colors.white,
                                 width: 18,
                               ),
-                              // borderRadius: BorderRadius.circular(28),
+                              // borderRadius: BorderRadius.circular(8),
                               // image: DecorationImage(
                               //   image: AssetImage(widget.image),
                               //   fit: BoxFit.fill,
                               // )
                             ),
                             child: IconButton(
+                            
                                 icon: Image.asset(
                                   'assets/img/04-apply-icon.png',
                                   width: 40,
@@ -256,14 +263,19 @@ class HomeScreen extends State<HomePage> with TickerProviderStateMixin {
                                   //     context,
                                   //     new MaterialPageRoute(
                                   //         builder: (context) => MessageScreen()));
-                                }),
+                                
+                                
+                                }
+                                
+                            ),
+                              
                           ),
                           Container(
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 SizedBox(
-                                  height: 150,
+                                  height: 140,
                                 ),
                                 Container(
                                     child: Row(
@@ -342,7 +354,7 @@ class HomeScreen extends State<HomePage> with TickerProviderStateMixin {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 SizedBox(
-                                  height: 150,
+                                  height: 140,
                                 ),
                                 Container(
                                     child: Row(
@@ -427,14 +439,14 @@ class HomeScreen extends State<HomePage> with TickerProviderStateMixin {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 SizedBox(
-                                  height: 120,
+                                  height: 140,
                                 ),
                                 Container(
                                     child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
-                                      '      MAINTENANCE',
+                                      '    MAINTENANCE',
                                       style: TextStyle(
                                         fontFamily: Styles.fontFamilyBold,
                                         fontSize: 15,
@@ -442,7 +454,7 @@ class HomeScreen extends State<HomePage> with TickerProviderStateMixin {
                                       textAlign: TextAlign.center,
                                     ),
                                     Text(
-                                      '   REQUEST',
+                                      '    REQUEST',
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                         fontFamily: Styles.fontFamilyBold,
@@ -526,7 +538,7 @@ class HomeScreen extends State<HomePage> with TickerProviderStateMixin {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 SizedBox(
-                                  height: 150,
+                                  height: 140,
                                 ),
                                 Container(
                                     child: Row(

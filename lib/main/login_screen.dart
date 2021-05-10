@@ -33,7 +33,7 @@ class LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       // appBar: AppBar(),
-      body: Column(
+      body: ListView(
         children: [
           Container(
             child: Form(
@@ -98,6 +98,7 @@ class LoginScreenState extends State<LoginScreen> {
                         onSaved: (String val) {
                           //  email = val;
                           email = val.trim();
+                          FocusScope.of(context).requestFocus(FocusNode());
                         },
                       ),
                     ),
@@ -147,6 +148,7 @@ class LoginScreenState extends State<LoginScreen> {
                         onSaved: (String val) {
                           password = val;
                           // emailReg = val.trim();
+                          FocusScope.of(context).requestFocus(FocusNode());
                         },
                       ),
                     ),
@@ -241,7 +243,6 @@ class LoginScreenState extends State<LoginScreen> {
 
   void _validateInputLogin() {
     AccountService service = new AccountService();
-
     if (_formKeyLogin.currentState.validate()) {
       _formKeyLogin.currentState.save();
       AlertMessage().onLoading(context);
@@ -253,10 +254,7 @@ class LoginScreenState extends State<LoginScreen> {
           Navigator.pop(context);
 
           saveData(res.data);
-          {
-            Navigator.push(context,
-                new MaterialPageRoute(builder: (context) => HomePage()));
-          }
+
           if (res.data["role"] == 2) {
             Navigator.push(context,
                 new MaterialPageRoute(builder: (context) => AdminScreen()));
@@ -266,11 +264,10 @@ class LoginScreenState extends State<LoginScreen> {
           }
 
           // showMessage(res.message);
-
         } else {
           print("ab");
           if (res.data != null) {
-            if (res.data["isVerified"] == 0) {
+            if (res.data["isVerified"] == null) {
               Navigator.pop(context);
               AlertMessage().showMessages(res.message);
             }
@@ -290,5 +287,54 @@ class LoginScreenState extends State<LoginScreen> {
         _autoValidate = true;
       });
     }
+
+    // if (_formKeyLogin.currentState.validate()) {
+    //   _formKeyLogin.currentState.save();
+    //   AlertMessage().onLoading(context);
+    //   // print("emailLogin===$emailLogin");
+    //   // print("passwordLogin===$passwordLogin");
+    //   service.userLogin(email, password).then((res) {
+    //     if (res.status) {
+    //       print("a");
+    //       Navigator.pop(context);
+
+    //       saveData(res.data);
+    //       {
+    //         Navigator.push(context,
+    //             new MaterialPageRoute(builder: (context) => HomePage()));
+    //       }
+    //       if (res.data["role"] == 2) {
+    //         Navigator.push(context,
+    //             new MaterialPageRoute(builder: (context) => AdminScreen()));
+    //       } else {
+    //         Navigator.push(context,
+    //             new MaterialPageRoute(builder: (context) => HomePage()));
+    //       }
+
+    //       // showMessage(res.message);
+
+    //     } else {
+    //       print("ab");
+    //       if (res.data != null) {
+    //         if (res.data["isVerified"] == 0) {
+    //           Navigator.pop(context);
+    //           AlertMessage().showMessages(res.message);
+    //         }
+    //       } else {
+    //         Navigator.pop(context);
+
+    //         AlertMessage().showMessages(res.message);
+    //       }
+    //     }
+    //   }).catchError((onError) {
+    //     print(onError);
+    //     // AlertMessage().showMessages(onError.toString());
+    //     Navigator.pop(context);
+    //   });
+    // } else {
+    //   setState(() {
+    //     _autoValidate = true;
+    //   });
+    // }
   }
 }

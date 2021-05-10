@@ -5,6 +5,9 @@ import 'package:ghcmobile/models/responce.dart';
 
 import 'package:http/http.dart' as http;
 import 'package:ghcmobile/models/globals.dart' as globals;
+import 'package:async/async.dart';
+
+import 'dart:io';
 
 class AccountService {
   Future<ResponceModel> userRegister(UserRegisterModel registerModel) async {
@@ -47,7 +50,6 @@ class AccountService {
     return postFromJson(response.body);
   }
 
-  
   Future<ResponceModel> userApplyData(UserApply userApply) async {
     // print("call readySetting Api:$UserApplyData ");
     var url = Uri.parse(globals.SERVICE_URL + "Account/UserApply");
@@ -80,39 +82,76 @@ class AccountService {
         body: body);
     print("${response.statusCode}");
     print("${response.body}");
-     return postFromJson(response.body);
-  }
-  
-
-  Future<ResponceModel> userMaintenance(Maintenance maintenance) async {
-    print("call maintenance Api:$maintenance");
-    var url = Uri.parse(globals.SERVICE_URL + "Account/UserMaintenance");
-    var data = {
-      'UserId': globals.userId,
-      'Address': maintenance.address,
-      'ProblemOfDescription': maintenance.description,
-      'ProblemPhoto': maintenance.problemofphoto,
-      'SocialType':maintenance.socialtype,
-      'ContactInfo': maintenance.contact,
-    };
-    print("API_Key: ${globals.apiKey}");
-    var body = json.encode(data);
-    print("$body");
-    print("$url");
-    var response = await http.post(url,
-        headers: {
-          "Content-Type": "application/json",
-          "API_Key": globals.apiKey,
-        },
-        body: body);
-    print("${response.statusCode}");
-    print("${response.body}");
-
     return postFromJson(response.body);
   }
-  
 
- }
+  Future<ResponceModel> userMaintenance(
+      File files, Maintenance maintenance) async {
+    print("=======================================");
+    print("call userMaintenance Api:$maintenance ");
+    var url = Uri.parse(globals.SERVICE_URL + "Account/UserMaintenance");
+    var request = new http.MultipartRequest("POST", url);
+    if (files != null) {
+      String filePath = files.path;
+      File file = files;
+      var paths = filePath.split('/');
+      String fileName = paths[paths.length - 1];
+      print('name:$fileName');
+      print(file);
+      var stream = new http.ByteStream(DelegatingStream.typed(file.openRead()));
+      var length = await file.length();
+      var multipartFile =
+          new http.MultipartFile('file', stream, length, filename: fileName);
+      request.files.add(multipartFile);
+    }
+    request.headers["Content-Type"] = "application/json";
+    request.headers["API_KEY"] = globals.apiKey;
+    request.fields['UserId'] = maintenance.userId.toString();
+    request.fields['Address'] = maintenance.address.toString();
+    request.fields['ProblemOfDescription'] = maintenance.description.toString();
+    request.fields['ProblemPhoto'] = maintenance.problemofphoto.toString();
+    request.fields['ContactInfo'] = maintenance.contact.toString();
+    request.fields['SocialType'] = maintenance.socialtype.toString();
+    var streamedResponse = await request.send();
+    final response = await streamedResponse.stream.bytesToString();
+    print(response);
+    print(streamedResponse.statusCode);
+    print(streamedResponse.reasonPhrase);
+    print(streamedResponse.request);
+    if (streamedResponse.statusCode == 200) {
+      print("Uploaded");
+      print('response.body' + response);
+    }
+    return postFromJson(response.toString());
+  }
+  // Future<ResponceModel> userMaintenance(Maintenance maintenance) async {
+  //   print("call maintenance Api:$maintenance");
+  //   var url = Uri.parse(globals.SERVICE_URL + "Account/UserMaintenance");
+  //   var data = {
+  //     'UserId': globals.userId,
+  //     'Address': maintenance.address,
+  //     'ProblemOfDescription': maintenance.description,
+  //     'ProblemPhoto': maintenance.problemofphoto,
+  //     'SocialType':maintenance.socialtype,
+  //     'ContactInfo': maintenance.contact,
+  //   };
+  //   print("API_Key: ${globals.apiKey}");
+  //   var body = json.encode(data);
+  //   print("$body");
+  //   print("$url");
+  //   var response = await http.post(url,
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         "API_Key": globals.apiKey,
+  //       },
+  //       body: body);
+  //   print("${response.statusCode}");
+  //   print("${response.body}");
+
+  //   return postFromJson(response.body);
+  // }
+
+}
 
 class UserRegisterModel {
   final int userId;

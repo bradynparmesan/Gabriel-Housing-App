@@ -47,7 +47,6 @@ class Maintenance {
   String contact;
 
   String socialtype;
-
   Maintenance({
     this.userId,
     this.address,
@@ -56,6 +55,8 @@ class Maintenance {
     this.contact,
     this.socialtype,
   });
+  
+
   factory Maintenance.fromJson(Map<String, dynamic> json) => Maintenance(
       userId: json["UserId"],
       address: json["Address"],
@@ -65,6 +66,7 @@ class Maintenance {
       socialtype: json["SocialType"]
       // social: json["City"],
       );
+
 }
 
 class UserMesseageList {

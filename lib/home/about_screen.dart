@@ -13,7 +13,8 @@ class AboutPage extends StatefulWidget {
 }
 
 class AboutScreen extends State<AboutPage> with TickerProviderStateMixin {
-  int currentIndex = 3;
+  //int currentIndex = 3;
+  int currentIndex;
   TextEditingController _numberCtrl = new TextEditingController();
   @override
   void initState() {
@@ -25,25 +26,28 @@ class AboutScreen extends State<AboutPage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () => Navigator.push(
+              context, new MaterialPageRoute(builder: (context) => HomePage())),
+        ),
         backgroundColor: Colors.white,
         iconTheme: IconThemeData(
-          color: Colors.white,
+          color: Colors.black,
           //change your color here
         ),
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
+        title: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(width: 100),
+            //SizedBox(width:55),
             Container(
-                //padding: const EdgeInsets.only(left: 15),
-                // width: 220,
-                // height: 150,
-                // alignment: Alignment.center,
+                width: MediaQuery.of(context).size.width / 1.7,
+                alignment: Alignment.center,
                 child: Image.asset(
-              "assets/img/logo.jpeg",
-              fit: BoxFit.contain,
-              height: 32,
-            ))
+                  "assets/img/logo.jpeg",
+                  fit: BoxFit.contain,
+                  height: 32,
+                ))
           ],
         ),
       ),
@@ -58,10 +62,11 @@ class AboutScreen extends State<AboutPage> with TickerProviderStateMixin {
   }
 
   Future<bool> _onBackPressed() {
-    print("object===");
+    print("about===object===");
     Navigator.push(context,
         MaterialPageRoute(builder: (BuildContext context) => HomePage()));
-    return Future.value(false);
+
+    return Future.value(true);
   }
 
   Widget buildabout(BuildContext context) {
@@ -69,7 +74,7 @@ class AboutScreen extends State<AboutPage> with TickerProviderStateMixin {
       Container(
         padding: const EdgeInsets.all(20),
         child: Text(
-            'Gabriel Housing Corporation has provided safe, sustainable, affordable housing to Métis people in the City of Regina since 1981. GHC currently owns and operates 359 units, consisting of single family dwellings, senior complexes and apartments located throughout the City of Regina.  Gabriel Housing Corporation’s head office is also net-zero, and is 100% powered by solar energy!',
+            'Gabriel Housing Corporation has provided safe, sustainable, affordable housing to Métis people in the City of Regina since 1981. GHC currently owns and operates 359 units, consisting of single family dwellings, senior complexes and apartments located throughout the City of Regina. Gabriel Housing Corporation’s head office is also net-zero, and is 100% powered by solar energy!',
             style: TextStyle(
                 color: Colors.black,
                 fontFamily: Styles.fontFamilyMedium,
@@ -120,7 +125,7 @@ class AboutScreen extends State<AboutPage> with TickerProviderStateMixin {
           ),
           Container(
             child: Text(
-              'Email  :',
+              'Email:',
               style: TextStyle(
                   fontSize: 15,
                   color: Styles.buttoncolor,
@@ -130,7 +135,7 @@ class AboutScreen extends State<AboutPage> with TickerProviderStateMixin {
           Container(
               child: Linkify(
             onOpen: _onOpen,
-            text: "reception@gabrielhousing.com",
+            text: " reception@gabrielhousing.com",
             style: TextStyle(fontSize: 13, fontFamily: Styles.fontFamilyMedium),
           ))
         ],
@@ -149,7 +154,7 @@ class AboutScreen extends State<AboutPage> with TickerProviderStateMixin {
           ),
           Container(
             child: Text(
-              'Phone :',
+              'Phone:',
               style: TextStyle(
                   fontSize: 15,
                   color: Styles.buttoncolor,
@@ -157,26 +162,27 @@ class AboutScreen extends State<AboutPage> with TickerProviderStateMixin {
             ),
           ),
           Container(
-            padding: const EdgeInsets.only(top: 3),
+              padding: const EdgeInsets.only(top: 3),
               child: Linkify(
-            onOpen: _onPhone,
-            text: "306-775-2905",
-            style: TextStyle(fontSize: 13, fontFamily: Styles.fontFamilyMedium),
-            // child:FlatButton(
-            // child: Text("Test Call"),
-            // onPressed: () async{
-            //   FlutterPhoneDirectCaller.callNumber(_numberCtrl.text);
-            // },
-            //   )
-          ))
+                onOpen: _onPhone,
+                text: " 306-775-2905",
+                style: TextStyle(
+                    fontSize: 13, fontFamily: Styles.fontFamilyMedium),
+                // child:FlatButton(
+                // child: Text("Test Call"),
+                // onPressed: () async{
+                //   FlutterPhoneDirectCaller.callNumber(_numberCtrl.text);
+                // },
+                //   )
+              ))
         ],
       )),
-       SizedBox(height: 10),
+      SizedBox(height: 10),
       Container(
           padding: const EdgeInsets.only(left: 20),
           child: GestureDetector(
             child: Text(
-              'little live',
+              'Personal Information Privacy Policy',
               style: TextStyle(
                   fontSize: 18,
                   color: Styles.buttoncolor,
